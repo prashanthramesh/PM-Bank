@@ -26,7 +26,7 @@ if(onlyAlphabets(lastName)){
 if(check()){
 if(validDob(dobDate)){	
 if(validEmail(mailID)){
-if(validPhneNo(phne,10)){
+if(validPhneNo(phne)){
 if(validPassword(password)){
 
 	document.forms[0].submit();
@@ -100,10 +100,10 @@ return false;
 }
 }
 
-function validPhneNo(phneNo,lenth)
+function validPhneNo(phne)
 {
-var noFormat =  /^(\d{3})(\d{4})(\d{4})$/;
-if(phneNo.value.match(noFormat)){
+var noFormat =  /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
+if(phne.value.match(noFormat)){
 return true;
 } 
 else
@@ -167,8 +167,8 @@ return true;
 <input class="form-control" type="text" name="email" value="" />
 </div>
 
-<div class="controls">Phone Number
-<input class="form-control" type="text" name="pnumber" value="" maxlength="11">
+<div class="controls">Phone Number(xxx-xxx-xxxx)
+<input class="form-control" type="text" name="pnumber" value="">
 </div>
 <button style = "margin-top:25px;"class="btn btn-primary" type="submit"><u>C</u>reate Account</button>&nbsp;&nbsp;<button style = "margin-top:25px;" class="btn btn-primary" type="reset"><u>R</u>eset</button>
 </form>

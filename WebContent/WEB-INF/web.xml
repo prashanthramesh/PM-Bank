@@ -79,4 +79,14 @@
     <servlet-name>Deposit</servlet-name>
     <url-pattern>/Deposit</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CashDeposit</display-name>
+    <servlet-name>CashDeposit</servlet-name>
+    <servlet-class>login.CashDeposit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CashDeposit</servlet-name>
+    <url-pattern>/CashDeposit</url-pattern>
+  </servlet-mapping>
 </web-app>

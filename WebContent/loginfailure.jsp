@@ -28,14 +28,12 @@
 &nbsp;
 <fieldset>
 <legend><b>Login Failure </b></legend>
-<table>
-<tr><td>&nbsp;</td><tr> 
-<tr><td><div align="Center"><p> Login Failure </p></div></td><tr> 
-<tr><td><div align="center"> Invalid Login Credentials provided</div></td><tr> 
-<tr><td><div align="center">Please try Login again</div></td></tr>
-<tr><td><div align="center"><a href='index.jsp'>Login </a></div></td></tr>
-<tr><td>&nbsp;</td></tr>
-</table>
+<div align="Center"><p> &nbsp;</p></div>
+<div align="Center"><p> Login Failure </p>
+ Invalid Login Credentials provided
+Please try Login again</div>
+<div align="center">&nbsp;</div>
+<div align="center"><a href='index.jsp' class="btn btn-primary">Login </a></div>
 </fieldset>
 </body>
 </html>

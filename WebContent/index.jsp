@@ -89,8 +89,8 @@ return true;
                 <form  name="loginform" action="login" onSubmit="return loginValidation();" method="post"id="contactForm">
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Full Name:</label>
-                            <input type="text" class="form-control" name = "fname"required data-validation-required-message="Please enter your name.">
+                            <label>Account Number:</label>
+                            <input type="text" class="form-control" name = "fname"required data-validation-required-message="Please enter your Account Number.">
                             <p class="help-block"></p>
                         </div>
                     </div>

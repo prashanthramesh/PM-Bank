@@ -63,8 +63,7 @@ public class register extends HttpServlet {
 	        }
 	        else
 	        {
-	           out.println("Username or Password incorrect");
-	           RequestDispatcher rs = request.getRequestDispatcher("/jsp/loginfailure.jsp");
+	           RequestDispatcher rs = request.getRequestDispatcher("loginSuccess.jsp");
 	           rs.include(request, response);
 	        }
 		

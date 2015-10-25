@@ -50,10 +50,10 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href='transfer.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Transfer<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                          <li>
-                                <a href='withdraw.jsp=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
+                                <a href='withdraw.jsp?value=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
                             </li>
                              <li>
-                                 <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a> 
+                                 <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a>
                             </li>
                         </ul>
                     </li>
@@ -91,8 +91,7 @@ String savAcc="";
 String chkAcc="";
 try
 {
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE fname=?");
-	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE "+session.getAttribute( "currentUser" ));
 	ResultSet result=state.executeQuery();
 while(result.next())
   {
@@ -100,8 +99,7 @@ while(result.next())
   }	
 result.close();  
 state.close();
-PreparedStatement state1=connect.prepareStatement("SELECT * FROM chckacc WHERE fname=?");
-state1.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+PreparedStatement state1=connect.prepareStatement("SELECT * FROM chckacc WHERE "+session.getAttribute( "currentUser" ));
 ResultSet result1=state1.executeQuery();
 while(result1.next())
   {
@@ -121,7 +119,7 @@ state1.close();
 </select>
 </tr>
 <tr><td width="43%">&nbsp;</td><tr>
-<td colspan=2 align=center><button type="submit" name="cash" value="cash"><u>C</u>ash Deposit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="cheque" value="cheque"><u>C</u>heque Deposit</button></td> 
+<td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cash" value="cash">Cash Deposit</button></td> 
 </tr>
 <tr><td>&nbsp;</td></tr>
 </table>

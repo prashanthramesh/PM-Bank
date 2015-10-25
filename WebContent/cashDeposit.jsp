@@ -129,22 +129,22 @@ try
 	
 	if(AccountType.equals("Savings"))
 	{
-		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE SAVACCNO=?");	
+		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE savAcc=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
 		while(result.next()){			
-			Balance=result.getString("ACC_BALANCE");
+			Balance=result.getString("intialVal");
 		}
 	
 	}else{
 		
-		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE CHCKACCNO=?");	
+		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE chkAcc=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
 		while(result.next()){			
-			Balance=result.getString("ACC_BALANCE");
+			Balance=result.getString("intialVal");
 		}
 		
 	}
@@ -182,7 +182,7 @@ System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage
 <tr>
 <td colspan=2 align=center><button type="submit" name="dePo" value="dePo"><u>D</u>eposit </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
 <tr><td>&nbsp;</td></tr>
-<tr><td colspan="2"><div align="center"><a href="depositMain.jsp">Switch Account</a></div></td></tr>
+<tr><td colspan="2"><div align="center"><a href="DepositMain.jsp">Switch Account</a></div></td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 </form>

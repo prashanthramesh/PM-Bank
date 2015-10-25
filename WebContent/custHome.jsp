@@ -49,7 +49,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href='transfer.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Transfer<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                          <li>
-                                <a href='withdraw.jsp=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
+                                <a href='withdraw.jsp?value=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
                             </li>
                              <li>
                                  <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a>

@@ -43,14 +43,14 @@ public class Deposit extends HttpServlet {
 		
 		 
 		 HttpSession ses = request.getSession();
-		 System.out.println("---------cust id-------"+ses.getAttribute("currentID"));
+		 System.out.println("---------cust id-------"+ses.getAttribute("currentUser"));
 	
 		 String Accountno = request.getParameter("accOption");
 		 System.out.println("Came here Deposit main work---------->"+Accountno);
 		 
 		 
 		 System.out.println("Came here Deposit type---------->"+request.getParameter("cash"));
-		 System.out.println("Came here Deposit type---------->"+request.getParameter("cheque"));
+		 
 		 
 		 
 		 if(request.getParameter("cash")!=null)

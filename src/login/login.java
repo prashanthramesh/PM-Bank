@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class login extends HttpServlet {
 	String fname;
-
 	String password ;
 	HttpSession session;
  
@@ -20,7 +19,7 @@ public class login extends HttpServlet {
          
          try
          {
-            if(fname.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin") )
+            if(fname.equalsIgnoreCase("45678") && password.equalsIgnoreCase("admin") )
              {
              	session = request.getSession(true); 
              	session.setAttribute("currentUser", fname);

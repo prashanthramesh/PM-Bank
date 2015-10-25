@@ -48,9 +48,8 @@ public class forgot extends HttpServlet {
 		
 		if(query.forgotUser(user))
 		 {
-			out.println("Successfully Registered !!!!!!!");
 			query.updateForgotUser(user);
-	        	RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+	        	RequestDispatcher rs = request.getRequestDispatcher("forgotSucess.jsp");
 	            rs.forward(request, response);
 	        }
 	        else

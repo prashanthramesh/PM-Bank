@@ -25,13 +25,12 @@
             </div>
             </nav>
 <%session.invalidate();%>
-<table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
-<tr><td>&nbsp;</td><tr> 
-<tr><td><div align="Center"><p> Logged Out</p></div></td><tr> 
-<tr><td><div align="Center"><p> &nbsp;</p></div></td><tr>
-<tr><td><div align="center"> You have Successfully Logged Out of PM !!!!</div></td><tr> 
-<tr><td><div align="center">&nbsp;</div></td></tr>
-<tr><td><div align="center"><a href='index.jsp' class="btn btn-primary">Login </a></div></td></tr>
-</table>
+
+<div align="Center"><p> Logged Out</p></div>
+<div align="Center"><p> &nbsp;</p></div>
+<div align="center"> You have Successfully Logged Out of PM !!!!</div>
+<div align="center">&nbsp;</div>
+<div align="center"><a href='index.jsp' class="btn btn-primary">Login </a></div>
+
 </body>
 </html>

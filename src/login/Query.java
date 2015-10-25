@@ -11,6 +11,7 @@ public class Query
   DbConnection dbcon;
   OnlineUser onUser;
   NewUser newUser;
+private String customerId;
 	
     public static boolean checkUser(String fname, String password) 
     {
@@ -24,7 +25,7 @@ public class Query
         Connection con=DriverManager.getConnection
                        ("jdbc:mysql://localhost:3306/bank","root","password123");
         PreparedStatement ps =con.prepareStatement
-                            ("select * from Account_details where first_name=? and pwd=?");
+                            ("select * from Account_details where cust_ID=? and pwd=?");
         ps.setString(1, fname);
         ps.setString(2, Encryption.encrypt(password));
         ResultSet rs =ps.executeQuery();
@@ -45,17 +46,17 @@ public class Query
     	 newUser =  new NewUser();
     	try{//loading drivers for mysql
         Class.forName("com.mysql.jdbc.Driver");
-String customerId = newUser.createUserID();
+customerId = newUser.createUserID();
 	 //creating connection with the database 
         Connection con=DriverManager.getConnection
                        ("jdbc:mysql://localhost:3306/bank","root","password123");
-        PreparedStatement state =con.prepareStatement("insert into pending_request set first_name=?,last_name=?,email=?,dob=?,gender=?,phone_no=?");
+        PreparedStatement state =con.prepareStatement("insert into pending_request set first_name=?,last_name=?,gender=?,dob=?,email=?,phone_no=?");
 		    state.setString(1,user.getFirstName());
 		    state.setString(2,user.getLastName());
-		    state.setString(3,user.getEmail());
+		    state.setString(3,user.getGender());
 		    state.setString(4,user.getDob());
-		    state.setString(5,user.getGender());
-		    state.setString(6,user.getPhoneNumber());
+		    state.setString(5,user.getEmail());
+		   state.setString(6,user.getPhoneNumber());
 		    
 		    
 
