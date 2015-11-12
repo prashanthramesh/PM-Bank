@@ -1,8 +1,6 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.Out"%>
-<%@page import="java.util.*" %>
-<%@ include file="dbconn.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ include file="dbconn.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,9 +10,8 @@
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<title>Customer Home Page</title>
+<title>Insert title here</title>
 </head>
-<body>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -49,7 +46,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href='transfer.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Transfer<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                          <li>
-                                <a href='withdrawal.jsp?value=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
+                                <a href='withdraw.jsp?value=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
                             </li>
                              <li>
                                  <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a>
@@ -78,85 +75,56 @@
         </div>
         <!-- /.container -->
     </nav>
-    <div style = "margin-top:20px;margin-left:110px;">
-<b>Welcome <%= session.getAttribute( "currentUser" ) %></b>
-<fieldset>
-<legend><b>Account</b></legend>
-<h3 align=center> Account Information</h3>
-<p align=center>Below are the Account details maintained</p>
-<table width=100% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
-<tr><td>&nbsp;</td><tr>
-<tr><td><b> Savings Account </b></td><tr>
-<tr><td>&nbsp;</td><tr>
+    
+    <fieldset>
+<legend><b>Withdraw</b></legend>
+<h3 align=center> Withdraw Portal</h3>
+<p align=center>Please select the Account from which Money needs to be Withdrawn </p>
+<form name="withdrawform" action="withdrawMny.jsp" method="post">
+<table width=50% align=center cellpadding=5 cellspacing=0>
+<tr> 
+<tr>
+<td><div align="right">Account </div></td>
 <%
+String savAcc="";
+String  chkAcc="";
 try
 {
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE fname=?");
-	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE "+session.getAttribute( "currentUser" ));
 	ResultSet result=state.executeQuery();
-System.out.println("-------------->>came here 1");
 while(result.next())
   {
-	System.out.println("-------------->>came here 2");
-      String Balance=result.getString("intialVal");
-      String SaccNo=result.getString("savAcc");   
-      String expDate=result.getString("dayy"); 
-      String lname=result.getString("lname");
- %>
-<tr align=center>
-<td><b>Account No</b></td>
-<td><b>Balance</b></td>
-</tr>
-<tr align=center>
-<td><%=SaccNo%></td>
-<td>$<%=Balance%></td>
-</tr>
-<%
-  }
-result.close();
-}catch(Exception e)
-{
-	e.getMessage();
-}
-%>
-<tr><td>&nbsp;</td><tr>
-<tr><td><b> Checking Account </b></td><tr>
-<tr><td>&nbsp;</td><tr>
-<%
-try
-{
-	
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM chckacc WHERE fname=?");
-	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
-	ResultSet result1=state.executeQuery();
-	while(result1.next())
-	  {
-	      String Balance=result1.getString("intialVal");
-	      String ChaccNo=result1.getString("chkAcc");   
-	      String expDate=result1.getString("dayy"); 
-	      String lname=result1.getString("lname");
-	      
-	      %>
-	      <tr align=center>
-	      <td><b>Account No</b></td>
-	      <td><b>Balance</b></td>	      
-	      </tr>
-	      <tr align=center>
-	      <td><%=ChaccNo%></td>
-	      <td>$<%=Balance%></td>	     
-	      </tr>
-    <%
-	  }
-	result1.close();
-	
+	savAcc=result.getString("savAcc");    
+  }	
+result.close();  
+state.close();
+
+PreparedStatement state1=connect.prepareStatement("SELECT * FROM chckacc WHERE "+session.getAttribute( "currentUser" ));
+ResultSet result1=state1.executeQuery();
+while(result1.next())
+  {
+      chkAcc=result1.getString("chkAcc"); 
+  }	
+result1.close();  
+state1.close();
 }catch(Exception e)
 {
 	System.out.println("--------------->"+e.getMessage());
 }
 %>
-<tr><td>&nbsp;</td><tr>
-<tr><td>&nbsp;</td><tr>
+<td>
+<select name="accOption">
+  <option value="'sav'+<%=savAcc%>">Savings Account (<%=savAcc%>)</option>
+  <option value="'chq'+<%=chkAcc%>">Chequing Account (<%=chkAcc%>)</option>
+</select>
+</tr>
+<tr><td width="43%">&nbsp;</td><tr>
+<td colspan=2 align=center><button type="submit" name="withdraw" value="withdraw">Proceed to Withdraw</button>
+</tr>
+<tr><td>&nbsp;</td></tr>
 </table>
+</form>
 </fieldset>
 </body>
 </html>

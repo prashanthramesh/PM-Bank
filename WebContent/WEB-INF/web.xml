@@ -89,4 +89,34 @@
     <servlet-name>CashDeposit</servlet-name>
     <url-pattern>/CashDeposit</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>WithdrawMny</display-name>
+    <servlet-name>WithdrawMny</servlet-name>
+    <servlet-class>login.WithdrawMny</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WithdrawMny</servlet-name>
+    <url-pattern>/WithdrawMny</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>WithdrawMoney</display-name>
+    <servlet-name>WithdrawMoney</servlet-name>
+    <servlet-class>login.WithdrawMoney</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WithdrawMoney</servlet-name>
+    <url-pattern>/WithdrawMoney</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Withdraw</display-name>
+    <servlet-name>Withdraw</servlet-name>
+    <servlet-class>login.WithdrawMny</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Withdraw</servlet-name>
+    <url-pattern>/Withdraw</url-pattern>
+  </servlet-mapping>
 </web-app>
