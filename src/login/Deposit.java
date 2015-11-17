@@ -83,10 +83,6 @@ public class Deposit extends HttpServlet {
 				 response.sendRedirect("chequeDeposit.jsp");
 			 } 
 		 }
-		 
-		 
-		 
-		
 	}
 
 }

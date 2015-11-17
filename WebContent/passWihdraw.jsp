@@ -9,7 +9,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
 
-<title>Login Failure</title>
+<title>Withdraw</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

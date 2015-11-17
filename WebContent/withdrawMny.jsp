@@ -33,7 +33,7 @@ if(len == 0)
 	alert('Please enter Amount to Withdraw');
 	return false;	
 }	
-if(amount.match(noFormat)){
+if((amount.match(noFormat)) && (amount > 0 )){
 return true;
 } 
 else
@@ -108,7 +108,7 @@ return false;
         </div>
         <!-- /.container -->
     </nav>
-    fieldset>
+ <fieldset>
 <legend><b>Withdraw</b></legend>
 <h3 align=center> Withdraw Amount </h3>
 <p align=center>Please enter the amount to be Withdrawn </p>
@@ -121,6 +121,9 @@ try
 	
     String type = request.getParameter("accOption");
     String accNo = request.getParameter("accOption").substring(6);
+    
+    System.out.println("---------> accOption here---->"+request.getParameter("accOption"));
+    System.out.println("---------> accOption next place---->"+request.getParameter("accOption").substring(6));
 
 	String Balance = null;
 	String AccountType = "";
@@ -130,7 +133,7 @@ try
 	if(type.startsWith("'sav'"))
 	{
 		AccountType = "Savings";
-		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE savAcc?");	
+		state =connect.prepareStatement("SELECT * FROM savacc WHERE savAcc=?");	
 		state.setString(1,accNo);
 		result=state.executeQuery();
 		
@@ -170,7 +173,7 @@ try
   <%
   
 }catch(Exception e){
-System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage());
+e.getMessage();
 }
 %>	
 <tr>

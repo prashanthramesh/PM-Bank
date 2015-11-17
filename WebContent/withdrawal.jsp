@@ -84,28 +84,32 @@
 <table width=50% align=center cellpadding=5 cellspacing=0>
 <tr> 
 <tr>
-<td><div align="right">Account </div></td>
+<td><div align="right"> Select Account </div></td>
 <%
 String savAcc="";
 String  chkAcc="";
 try
 {
-
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE "+session.getAttribute( "currentUser" ));
+    System.out.println("++++++++ current USer ++++"+session.getAttribute( "currentUser"));
+    PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE email=?");
+	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 	ResultSet result=state.executeQuery();
 while(result.next())
   {
 	savAcc=result.getString("savAcc");    
   }	
+System.out.println("--------------->sav"+savAcc);
 result.close();  
 state.close();
 
-PreparedStatement state1=connect.prepareStatement("SELECT * FROM chckacc WHERE "+session.getAttribute( "currentUser" ));
+PreparedStatement state1=connect.prepareStatement("SELECT * FROM chckacc WHERE email=?");
+state1.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 ResultSet result1=state1.executeQuery();
 while(result1.next())
   {
       chkAcc=result1.getString("chkAcc"); 
   }	
+System.out.println("--------------->chk"+chkAcc);
 result1.close();  
 state1.close();
 }catch(Exception e)
@@ -119,6 +123,7 @@ state1.close();
   <option value="'chq'+<%=chkAcc%>">Chequing Account (<%=chkAcc%>)</option>
 </select>
 </tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td width="43%">&nbsp;</td><tr>
 <td colspan=2 align=center><button type="submit" name="withdraw" value="withdraw">Proceed to Withdraw</button>
 </tr>

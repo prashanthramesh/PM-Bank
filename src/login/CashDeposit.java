@@ -16,6 +16,7 @@ import java.sql.*;
  */
 public class CashDeposit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Query query;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,12 +38,13 @@ public class CashDeposit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		DbConnection dbcon;
-HttpSession ses = request.getSession();
+        HttpSession ses = request.getSession();
+        query = new Query();
 		
+        String accNo = request.getParameter("accno");
 		String accType = request.getParameter("accType");
-		String accNo = request.getParameter("accno");
 		String balance = request.getParameter("balance");
 		String deposit = request.getParameter("depamt");
 		
@@ -52,15 +54,9 @@ HttpSession ses = request.getSession();
 		
 		 try{
 
-  			 //loading drivers for mysql
-  		        Class.forName("com.mysql.jdbc.Driver");
-
-  			 //creating connection with the database 
-  		        Connection con=DriverManager.getConnection
-  		                       ("jdbc:mysql://localhost:3306/bank","root","password123");
-  		      Double bal = Double.parseDouble(balance)+Double.parseDouble(deposit);
-	           System.out.println("----------> amount ---------->"+bal);
-	           UpdateAcc(con,accType,accNo,bal,ses);
+  		       Double bal = Double.parseDouble(balance)+Double.parseDouble(deposit);
+	           query.UpdateAcc(accType,bal,String.valueOf(ses.getAttribute("currentUser")));
+	           query.updateTransValues(accNo, accType, "Deposit", deposit, String.valueOf(ses.getAttribute("custID")));
 	           
 	           ses.setAttribute("cashresult", "Amount Successfully Deposited");
 		       response.sendRedirect("passDeposit.jsp");
@@ -71,25 +67,14 @@ HttpSession ses = request.getSession();
   		         e.printStackTrace();
   		     }
   	  
-		 try{
-			 Connection con=DriverManager.getConnection
-                       ("jdbc:mysql://localhost:3306/bank","root","password123");	
-			 UpdateTrans trans = new UpdateTrans(con,accNo,accType,"Deposit",deposit,String.valueOf(ses.getAttribute("currentID")));
-			 trans.updateTransValues();
-			 
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			System.out.println(" -----------> Failed in updation trans --------");
-		}
+		
 		 
 		 try{
 				
 				String email = "";
 				String lname = "";
-				 Connection con=DriverManager.getConnection
-	            ("jdbc:mysql://localhost:3306/bank","root","password123");
-				PreparedStatement state=con.prepareStatement("SELECT * FROM account_details WHERE "+"cust_ID="+ses.getAttribute("currentUser"));
+				dbcon = new DbConnection();
+				PreparedStatement state=dbcon.getConnect().prepareStatement("SELECT * FROM account_details WHERE "+"cust_ID="+ses.getAttribute("custID"));
 				ResultSet result=state.executeQuery();
 				
 				while(result.next()){
@@ -110,39 +95,14 @@ HttpSession ses = request.getSession();
 				    		      "\n\n Note : Please do not reply to this E-Mail Notification";
 				    
 				mail.sendMail( "Cash Deposited", text);
-				con.close();
+				dbcon.clsConnect();
 				
 			}catch(Exception e){
 				e.printStackTrace();
 				System.out.println(" -----------> Failed in Mail notification --------");
 			}
-		doGet(request, response);
 	}
 
-	private void UpdateAcc(Connection con, String accType, String accNo, Double bal, HttpSession ses) {
-		// TODO Auto-generated method stub
-		try{
-			PreparedStatement state;
-			
-			  if(accType.equals("Savings")){				  
-				  state=con.prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE "+"custID="+ses.getAttribute("currentUser"));            
-			  }else
-			  {				  
-				   state=con.prepareStatement( "UPDATE CHCKACC SET intialVal=? WHERE "+"custID="+ses.getAttribute("currentUser"));	           
-			  }
-			  
-			state.setString(1,String.valueOf(bal));
-	   	    state.executeUpdate();
-	   	    state.close();
-	  		
-			
-		}catch(Exception e)
-		{
-			System.out.println("Failed here update amount --------->");
-			e.printStackTrace();
-		}
-		
-	}
-	}
+}
 
 

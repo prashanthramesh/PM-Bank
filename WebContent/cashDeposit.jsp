@@ -36,7 +36,7 @@ if(len == 0)
 	alert('Please enter Amount to Deposit');
 	return false;	
 }	
-if(amount.value.match(noFormat)){
+if((amount.match(noFormat)) && (amount > 0 )){
 return true;
 } 
 else

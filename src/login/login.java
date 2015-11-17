@@ -8,6 +8,9 @@ public class login extends HttpServlet {
 	String fname;
 	String password ;
 	HttpSession session;
+	Query query;
+	OnlineUser userDet;
+	
  
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -16,20 +19,23 @@ public class login extends HttpServlet {
         
          fname= request.getParameter("fname");
          password = request.getParameter("password");
-         
+         query = new Query();
          try
          {
-            if(fname.equalsIgnoreCase("45678") && password.equalsIgnoreCase("admin") )
+            if(fname.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin") )
              {
              	session = request.getSession(true); 
-             	session.setAttribute("currentUser", fname);
+             	session.setAttribute("currentUser", "Admin");
              	RequestDispatcher rs = request.getRequestDispatcher("WelcomeAdmin.jsp");
                 rs.forward(request, response);
              }
             
-            else if(Query.checkUser(fname,password)){
+            else if(query.checkUser(fname,password)){
             	session = request.getSession(true); 
-             	session.setAttribute("currentUser", fname);
+            	userDet = query.fetchUserInfoCustID(fname);
+             	session.setAttribute("currentUser", userDet.getEmail());
+             	session.setAttribute("currentID", userDet.getFirstName());
+             	session.setAttribute("custID", userDet.getCustomerID());
 	        	RequestDispatcher rs = request.getRequestDispatcher("custHome.jsp");
 	            rs.forward(request, response);            	
             }

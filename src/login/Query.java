@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import dbConnection.DbConnection;
 
 public class Query
@@ -11,34 +13,25 @@ public class Query
   DbConnection dbcon;
   OnlineUser onUser;
   NewUser newUser;
-private String customerId;
+  String customerId;
+  String customerName;
 	
-    public static boolean checkUser(String fname, String password) 
+    public boolean checkUser(String fname, String password) 
     {
      boolean st =false;
      try{
-
-	 //loading drivers for mysql
-        Class.forName("com.mysql.jdbc.Driver");
-
-	 //creating connection with the database 
-        Connection con=DriverManager.getConnection
-                       ("jdbc:mysql://localhost:3306/bank","root","password123");
-        PreparedStatement ps =con.prepareStatement
-                            ("select * from Account_details where cust_ID=? and pwd=?");
+    	dbcon = new DbConnection();
+        PreparedStatement ps =dbcon.getConnect().prepareStatement("select * from Account_details where cust_ID=? and pwd=?");
         ps.setString(1, fname);
         ps.setString(2, Encryption.encrypt(password));
         ResultSet rs =ps.executeQuery();
-        st = rs.next();
-        
-        
-       
+        st = rs.next();       
      }catch(Exception e)
      {
          e.printStackTrace();
      }
         return st;                 
- }   
+    }   
    
     
     public boolean registerUser(OnlineUser user){
@@ -267,6 +260,32 @@ customerId = newUser.createUserID();
 		}
 		return onUser;
 	}
+	
+	public OnlineUser fetchUserInfoCustID(String cust_ID) {
+		try
+		{
+			dbcon = new DbConnection();
+			onUser = new OnlineUser();
+			PreparedStatement state = dbcon.getConnect().prepareStatement("SELECT * FROM Account_details WHERE cust_ID=?");
+			state.setString(1,cust_ID);
+			ResultSet result=state.executeQuery();			
+			while(result.next()){				
+				onUser.setFirstName(result.getString("first_name"));
+				onUser.setLastName(result.getString("last_name"));
+				onUser.setGender(result.getString("gender"));
+				onUser.setDob(result.getString("dob"));
+				onUser.setEmail(result.getString("email"));
+				onUser.setPhoneNumber(result.getString("phone_no"));
+				onUser.setAddress(result.getString("address"));
+				onUser.setCustomerID(result.getString("cust_ID"));
+			}
+			state.close();
+			dbcon.clsConnect();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		return onUser;
+	}
 
 
 	public void createNewUser(OnlineUser userObj) {
@@ -316,6 +335,87 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		}
 		
 	}
+	
+	public void UpdateAcc(String accType,Double bal, String mail) {
+		try{
+			System.out.println("Find me here +++");
+			System.out.println("new balance +++"+bal);
+			dbcon = new DbConnection();
+			PreparedStatement state;
+			System.out.println("Find me here anme +++"+mail);
+			  if(accType.equals("Savings")){				  
+				  state=dbcon.getConnect().prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE email=?");            
+			  }else
+			  {				  
+				   state=dbcon.getConnect().prepareStatement( "UPDATE CHCKACC SET intialVal=? WHERE email=?");	           
+			  }
+			  
+			state.setString(1,String.valueOf(bal));
+			state.setString(2,String.valueOf(mail));			
+	   	    state.executeUpdate();
+	   	    state.close();
+	   	 dbcon.clsConnect();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void DetectAcc(String accType, Double bal, String mail) {
+		try{
+			System.out.println("Find me here +++");
+			System.out.println("new balance +++"+bal);
+			dbcon = new DbConnection();
+			PreparedStatement state;
+			System.out.println("Find me here anme +++"+mail);
+			  if(accType.equals("Savings")){				  
+				  state=dbcon.getConnect().prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE email=?");            
+			  }else
+			  {				  
+				   state=dbcon.getConnect().prepareStatement( "UPDATE CHCKACC SET intialVal=? WHERE email=?");	           
+			  }
+			  
+			state.setString(1,String.valueOf(bal));
+			state.setString(2,String.valueOf(mail));			
+	   	    state.executeUpdate();
+	   	    state.close();
+	   	 dbcon.clsConnect();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+   public void updateTransValues(String accNo,String accType,String transType,String amount,String custID){
+		
+		try{
+			System.out.println("++++++ custID +++"+custID);
+			dbcon = new DbConnection();
+			PreparedStatement state1;
+			   
+		    state1= dbcon.getConnect().prepareStatement("INSERT INTO TRANS VALUES(?,?,?,?,?,?)");   
+		    state1.setString(1,accNo);
+		    state1.setString(2,accType);
+		    state1.setString(3,new java.text.SimpleDateFormat("yyyy:mm:dd hh:mm:ss").format(new Date()));
+		    state1.setString(4,transType);
+		    state1.setString(5,amount);
+		    state1.setString(6,custID);
+		    
+		    state1.executeUpdate();	
+		    state1.close();		    
+		    dbcon.clsConnect();
+	}catch(Exception e)
+	{
+		System.out.println("Failed here update amount --------->");
+		e.printStackTrace();
+	}
+   }
+		
+	
 }
 
 

@@ -37,9 +37,9 @@
                     <li class = "dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                         <li>
+                        <%--  <li>
                                 <a href='viewBalance.jsp=<%=session.getAttribute( "currentUser" )%>'>View Balance</a>
-                            </li>
+                            </li> --%>
                              <li>
                                 <a href='viewTransaction.jsp=<%=session.getAttribute( "currentUser" )%>'>View Transaction</a>
                             </li>
@@ -49,7 +49,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href='transfer.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Transfer<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                          <li>
-                                <a href='withdrawal.jsp?value=<%=session.getAttribute( "currentUser" )%>'>With Draw</a>
+                                <a href='withdrawal.jsp?value=<%=session.getAttribute( "currentUser" )%>'>WithDraw</a>
                             </li>
                              <li>
                                  <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a>
@@ -79,7 +79,7 @@
         <!-- /.container -->
     </nav>
     <div style = "margin-top:20px;margin-left:110px;">
-<b>Welcome <%= session.getAttribute( "currentUser" ) %></b>
+<b>Welcome <%= session.getAttribute( "currentID" ) %></b>
 <fieldset>
 <legend><b>Account</b></legend>
 <h3 align=center> Account Information</h3>
@@ -91,13 +91,11 @@
 <%
 try
 {
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE fname=?");
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE email=?");
 	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 	ResultSet result=state.executeQuery();
-System.out.println("-------------->>came here 1");
 while(result.next())
   {
-	System.out.println("-------------->>came here 2");
       String Balance=result.getString("intialVal");
       String SaccNo=result.getString("savAcc");   
       String expDate=result.getString("dayy"); 
@@ -126,7 +124,7 @@ result.close();
 try
 {
 	
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM chckacc WHERE fname=?");
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM chckacc WHERE email=?");
 	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 	ResultSet result1=state.executeQuery();
 	while(result1.next())
@@ -151,7 +149,7 @@ try
 	
 }catch(Exception e)
 {
-	System.out.println("--------------->"+e.getMessage());
+	e.getMessage();
 }
 %>
 <tr><td>&nbsp;</td><tr>

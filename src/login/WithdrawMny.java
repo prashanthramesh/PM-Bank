@@ -18,6 +18,7 @@ import dbConnection.DbConnection;
  */
 public class WithdrawMny extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Query query;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,6 +44,7 @@ public class WithdrawMny extends HttpServlet {
 		
 		DbConnection dbcon;			 
 		HttpSession ses = request.getSession();
+		query = new Query();
 		
 		String accType = request.getParameter("accType");
 		String accNo = request.getParameter("accno");
@@ -54,23 +56,18 @@ public class WithdrawMny extends HttpServlet {
 		System.out.println("deposit :"+withdraw);
 		
 			try{
-		           if(Long.parseLong(balance) < Long.parseLong(withdraw))
+		           if(Double.parseDouble(balance) < Double.parseDouble(withdraw))
 		           {
 		        	   ses.setAttribute("withdrawresult", "Withdraw Amount Entered Exceeds Account Balance");
 				       response.sendRedirect("passWihdraw.jsp");
 				       
 		           }else
 		           {
-		        	   Class.forName("com.mysql.jdbc.Driver");
-
-		    			 //creating connection with the database 
-		    		        Connection con=DriverManager.getConnection
-		    		                       ("jdbc:mysql://localhost:3306/bank","root","password123");
 			           Double bal = Double.parseDouble(balance)-Double.parseDouble(withdraw);
 			           System.out.println("----------> amount ---------->"+bal);
 			           
-			           DetectAcc(con,accType,accNo,bal,ses);
-			           
+			           query.DetectAcc(accType,bal,String.valueOf(ses.getAttribute("currentUser")));
+			           query.updateTransValues(accNo, accType, "Withdraw", withdraw, String.valueOf(ses.getAttribute("custID")));
 			           
 			           ses.setAttribute("withdrawresult", "Amount Successfully Withdrawn from Account");
 				       response.sendRedirect("passWihdraw.jsp");
@@ -81,29 +78,15 @@ public class WithdrawMny extends HttpServlet {
 			{ 
 				ses.setAttribute("withdrawresult", "Amount Withdraw Failure \n Please Try again");
 		        response.sendRedirect("passWihdraw.jsp");
-				System.out.println("Failed here --------->");
 		       	e.printStackTrace();
-			}
-			
-			try{
-				 Connection con=DriverManager.getConnection
-	                       ("jdbc:mysql://localhost:3306/bank","root","password123");
-				 UpdateTrans trans = new UpdateTrans(con,accNo,accType,"Withdraw",withdraw,String.valueOf(ses.getAttribute("currentID")));
-				 trans.updateTransValues();
-				 
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				System.out.println(" -----------> Failed in updation trans --------");
 			}
 			
 			try{
 				
 				String email = "";
 				String lname = "";
-				 Connection con=DriverManager.getConnection
-	                       ("jdbc:mysql://localhost:3306/bank","root","password123");
-				 PreparedStatement state=con.prepareStatement("SELECT * FROM account_details WHERE "+"cust_ID="+ses.getAttribute("currentUser"));
+				 dbcon = new DbConnection();
+				 PreparedStatement state=dbcon.getConnect().prepareStatement("SELECT * FROM account_details WHERE "+"cust_ID="+ses.getAttribute("custID"));
 					ResultSet result=state.executeQuery();
 				
 				while(result.next()){
@@ -124,7 +107,7 @@ public class WithdrawMny extends HttpServlet {
 				    		      "\n\n Note : Please do not reply to this E-Mail Notification";
 				    
 				mail.sendMail( "Withdraw", text);
-				con.close();
+				dbcon.clsConnect();
 				
 			}catch(Exception e){
 				e.printStackTrace();
@@ -153,30 +136,5 @@ public class WithdrawMny extends HttpServlet {
 		
 	}*/
 
-	private void DetectAcc(Connection con, String accType, String accNo,
-			Double bal, HttpSession ses) {
-		// TODO Auto-generated method stub
-		
-		try{
-			PreparedStatement state;
-			
-			  if(accType.equals("Savings")){				  
-				  state=con.prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE "+"custID="+ses.getAttribute("currentUser"));            
-			  }else
-			  {				  
-				   state=con.prepareStatement( "UPDATE CHCKACC SET intialVal=? WHERE "+"custID="+ses.getAttribute("currentUser"));	           
-			  }
-			  
-			state.setString(1,String.valueOf(bal));
-	   	    state.executeUpdate();
-	   	    state.close();
-			
-		}catch(Exception e)
-		{
-			System.out.println("Failed here update amount --------->");
-			e.printStackTrace();
-		}
-		
-	}
 		
 	}
