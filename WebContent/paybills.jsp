@@ -82,38 +82,12 @@
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td width="43%">&nbsp;</td>
 </tr> 
-<%
-String ebill="";
-String broadbill="";
-String mobilebill="";
-String waterbill="";
-try
-{
-
-Statement reqst = connect.createStatement();
-ResultSet result =reqst.executeQuery("SELECT * FROM PAYEE ");
-
-while(result.next())
-  {
-	 ebill=result.getString("Ebill");
-	 broadbill=result.getString("Brodbill");
-	 mobilebill=result.getString("Mobbill");
-	 waterbill=result.getString("Watbill");  
-  }	
-result.close();  
-reqst.close();
-
-}catch(Exception e)
-{
-	System.out.println("--------------->"+e.getMessage());
-}
-%>
 <tr><td><div align="center"><b>Select Bill Payment </b></div></td><tr>
 <tr><td>&nbsp;</td><tr>
-<tr><td>&nbsp;</td><td ><input type="radio" name="type" value="<%=ebill%>" checked>Electricity Bill<br></td></tr>
-<tr><td>&nbsp;</td><td ><input type="radio" name="type" value="<%=broadbill%>">Broadband Bill<br></td></tr>
-<tr><td>&nbsp;</td><td ><input type="radio" name="type" value="<%=mobilebill%>">Mobile Bill<br></td></tr>
-<tr><td>&nbsp;</td><td ><input type="radio" name="type" value="<%=waterbill%>">Water Bill<br></td></tr>
+<tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Electricity Bill" checked>Electricity Bill<br></td></tr>
+<tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Broadband Bill">Broadband Bill<br></td></tr>
+<tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Mobile Bill">Mobile Bill<br></td></tr>
+<tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Water Bill">Water Bill<br></td></tr>
 <tr><td>&nbsp;</td><tr>
 <td><div align="right">Account </div></td>
 <%

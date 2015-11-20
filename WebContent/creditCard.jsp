@@ -102,7 +102,7 @@ try
 <tr align=center><td><b>Debit Amount :</b></td><td align=left><%=DebitAmt %></td></tr>
 <tr align=center><td><b>CCv No :</b></td><td align=left><%=CcvNo %></td></tr>
 <tr align=center><td><b>Expiry Date :</b></td><td align=left><%=Exp_date %></td></tr>
-<tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentID" )%>'>Home</a></div></td></tr>	     	      	    
+<tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td></tr>	     	      	    
 <%    
 	    
 	}else
@@ -111,7 +111,7 @@ try
 <tr><td><p align=center><b>No Credit Card Issued </b></p></td></tr>
 <tr><td><p align=center>Please apply for a new credit card</p></td></tr>
 <tr><td colspan=2 align=center><button type="submit"><u>A</u>pply Credit Card</button></td></tr>	
-<tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentID" )%>'>Home</a></div></td></tr>		
+<tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td></tr>		
 <%		
 	}
 	state.close();

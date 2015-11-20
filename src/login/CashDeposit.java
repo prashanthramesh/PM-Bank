@@ -64,7 +64,10 @@ public class CashDeposit extends HttpServlet {
 	          
   		     }catch(Exception e)
   		     {
-  		         e.printStackTrace();
+  		    	 ses.setAttribute("cashresult", "Amount  Deposited Failed due to "+e.getMessage());
+  		         response.sendRedirect("passDeposit.jsp");
+  		    	 
+  		    	 e.printStackTrace();
   		     }
   	  
 		

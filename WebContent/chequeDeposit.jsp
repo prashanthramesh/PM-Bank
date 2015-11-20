@@ -16,33 +16,10 @@
 <script language="javascript" type="text/javascript">
 function cashValid()
 {
-
-var amount = document.cashform.depamt;
-
-if(validAmount(amount)){
-
-	return true;	
-}
-
-return false;
-}
-
-function validAmount(amount)
-{
-var len = amount.value.length;
-var noFormat = /^\d+.?\d*$/;
-if(len == 0)
-{
-	alert('Please enter Amount to Deposit');
-	return false;	
-}	
-if(amount.value.match(noFormat)){
-return true;
-} 
-else
-{
-alert('Entered Amount is Invalid');
-return false;	
+var name= document.getElementById("uploadFile");
+if(name.value.length<4){
+    alert('Please select Cheque image to Upload');
+    return false;
 }
 }
 
@@ -111,8 +88,11 @@ return false;
         </div>
         <!-- /.container -->
     </nav>
+    <fieldset>
+    <legend><b>Deposit</b></legend>
+<h3 align=center> Cheque Deposit</h3>
    <p align=center>Please enter the amount to be deposited </p>
-<form name="cashform" action="CashDeposit" onSubmit="return cashValid();" method="post">
+<form name="chequeform" ENCTYPE="multipart/form-data" ACTION="ChequeDeposit" onSubmit="return cashValid();" method="post">
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td>&nbsp;</td><tr>
 <%
@@ -176,11 +156,15 @@ System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage
 }
 %>	
 <tr>
-<td height="25"><div align="right">Deposit amount :</div></td>
-<td><input type="text" name="depamt" value="" ></td>
+<td height="25"><div align="right">Select Cheque Image :</div></td>
+<td><input id="uploadFile" type="file" name="image" value="" ></td>
 </tr>
+<tr><td colspan="2">
+<tr>
+<tr><td>&nbsp;</td></tr>
 <tr>
 <td colspan=2 align=center><button type="submit" name="dePo" value="dePo"><u>D</u>eposit </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
+</tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td colspan="2"><div align="center"><a href="depositMain.jsp">Switch Account</a></div></td></tr>
 <tr><td>&nbsp;</td></tr>

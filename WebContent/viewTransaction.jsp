@@ -90,11 +90,11 @@
 <tr>
 <tr><td>&nbsp;</td></tr>
 <%
-if(request.getParameter("value").startsWith("sav"))
-{
-	Statement reqst = connect.createStatement();
-	ResultSet result =reqst.executeQuery("SELECT * FROM TRANS WHERE accNo="+request.getParameter("value").substring(3));
-	
+
+System.out.println("++++++++ current Id ++++"+session.getAttribute( "custID"));
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM TRANS WHERE custID=?");
+	state.setString(1,String.valueOf(session.getAttribute("custID")));
+	ResultSet result= state.executeQuery();	
 	
 	if(!result.next()){ 
 		%>
@@ -123,82 +123,8 @@ if(request.getParameter("value").startsWith("sav"))
 	}
 	
 result.close();
-reqst.close();
-connect.close();
-}
-else if(request.getParameter("value").startsWith("chk"))
-{
+state.close();
 
-	Statement reqstchk = connect.createStatement();
-	ResultSet resultchk =reqstchk.executeQuery("SELECT * FROM TRANS WHERE accNo="+request.getParameter("value").substring(3));
-
-	if(!resultchk.next()){ 
-		%>
-		<tr><td><div align="center"><p>New Account </p></div></td></tr>
-		<tr><td><div align="center"><p>No Transactions Available </p></div></td></tr>
-	  <% 
-	}
-	else{
-	    do{
-
-	    	String AccNo=resultchk.getString("accNo");
-	    	
-		      String AccType=resultchk.getString("accType");   
-		      String Time=resultchk.getString("trans_date"); 
-		      String TransType=resultchk.getString("transType");
-		      String Amt=resultchk.getString("amount");	 
-	%>
-	<tr><td align="center"><%=AccNo %></td>
-	<td align="center"><%=AccType %></td>
-	<td align="center"><%=TransType %></td>
-	<td align="center"><%=Amt %>$</td>
-	<td align="center"><%=Time %></td>
-	<tr>
-	<tr><td>&nbsp;</td></tr>
-	<%
-	    } 
-	    while(resultchk.next());
-	}
-
-resultchk.close();
-reqstchk.close();
-connect.close();
-}
-else
-{
-	 Statement reqFull = connect.createStatement();
-	 ResultSet re =reqFull.executeQuery("SELECT * FROM TRANS WHERE custID="+request.getParameter("value"));	 
-	 
-	 if(!re.next()){ 
-		 %>
-			<tr><td><div align="center"><p>New Account </p></div></td></tr>
-			<tr><td><div align="center"><p>No Transactions Available </p></div></td></tr>
-		  <%
-		}
-		else{
-		    do{
-		    	String AccNo=re.getString("accNo");
-			      String AccType=re.getString("accType");   
-			      String Time=re.getString("trans_date"); 
-			      String TransType=re.getString("transType");
-			      String Amt=re.getString("amount");	
-		 %>
-		<tr><td align="center"><%=AccNo %></td>
-		<td align="center"><%=AccType %></td>
-		<td align="center"><%=TransType %></td>
-		<td align="center"><%=Amt %>$</td>
-		<td align="center"><%=Time %></td>
-		<tr>
-		<tr><td>&nbsp;</td></tr>
-		<%
-		    } 
-		    while(re.next());
-		}
-	 
-	 re.close();
-	 reqFull.close();
-	 connect.close();
-}
 %>
 <tr><td colspan="6"><div align="center"><a href='accountInfo.jsp?value=<%=session.getAttribute( "currentID" )%>'>Account</a></div></td></tr>
 </table>

@@ -111,6 +111,9 @@ return false;
         </div>
         <!-- /.container -->
     </nav>
+ <fieldset>
+ <legend><b>Deposit</b></legend>
+<h3 align=center> Cash Deposit</h3>
    <p align=center>Please enter the amount to be deposited </p>
 <form name="cashform" action="CashDeposit" onSubmit="return cashValid();" method="post">
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
@@ -180,6 +183,7 @@ System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage
 <td><input type="text" name="depamt" value="" ></td>
 </tr>
 <tr>
+<tr><td>&nbsp;</td></tr>
 <td colspan=2 align=center><button type="submit" name="dePo" value="dePo"><u>D</u>eposit </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
 <tr><td>&nbsp;</td></tr>
 <tr><td colspan="2"><div align="center"><a href="DepositMain.jsp">Switch Account</a></div></td></tr>

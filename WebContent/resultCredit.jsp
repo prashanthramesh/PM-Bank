@@ -83,7 +83,7 @@
 <td height="25"><p align=center><%=session.getAttribute("creditcardStatus")%></p></td>
 </tr>
 <tr>
-<td><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentID" )%>'>Home</a></div></td>
+<td><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td>
 </tr>
 <tr><td>&nbsp;</td></tr>
 </table>

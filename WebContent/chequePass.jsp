@@ -8,7 +8,6 @@
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
-
 <title>Deposit</title>
 </head>
 <body>
@@ -29,11 +28,11 @@
 &nbsp;
 <fieldset>
 <legend><b> Deposit </b></legend>
-<h3 align=center> Cash Deposit </h3>
+<h3 align=center> Cheque Deposit </h3>
 <table width=50% align="center" cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td>&nbsp;</td><tr>
 <tr>
-<td height="25"><p align=center><%=session.getAttribute("cashresult")%></p></td>
+<td height="25"><p align=center><%=session.getAttribute("chequeresult")%></p></td>
 </tr>
 <tr>
 <td><div align="center"><a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a></div></td>

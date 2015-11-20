@@ -84,7 +84,7 @@
 <td height="25"><p align=center><%=session.getAttribute("passPayResult")%></p></td>
 </tr>
 <tr>
-<td><div align="center"><a href='paybills.jsp?value=<%=session.getAttribute( "currentID" )%>'>Pay Bill</a></div></td>
+<td><div align="center"><a href='paybills.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Pay Bill</a></div></td>
 </tr>
 <tr><td>&nbsp;</td></tr>
 </table>

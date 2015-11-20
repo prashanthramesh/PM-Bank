@@ -414,6 +414,27 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		e.printStackTrace();
 	}
    }
+   
+   public void reqCreditCard(String custID,String email){
+		
+		try{
+			System.out.println("++++++ custID credit card +++"+custID);
+			System.out.println("++++++ email credit card +++"+email);
+			dbcon = new DbConnection();
+			PreparedStatement state1;
+			   
+		    state1= dbcon.getConnect().prepareStatement("INSERT INTO CREDITCARDREQ VALUES(?,?,?)");   
+		    state1.setString(1,email);
+		    state1.setString(2,custID);
+		    state1.setString(3,new java.text.SimpleDateFormat("yyyy:mm:dd hh:mm:ss").format(new Date()));
+		    state1.executeUpdate();	
+		    state1.close();		    
+		    dbcon.clsConnect();
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+  }
 		
 	
 }

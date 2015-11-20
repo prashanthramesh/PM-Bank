@@ -125,9 +125,10 @@ state1.close();
 </select>
 </tr>
 <tr><td width="43%">&nbsp;</td><tr>
-<td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cash" value="cash">Cash Deposit</button></td> 
-</tr>
-<tr><td>&nbsp;</td></tr>
+<td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cash" value="cash">Cash Deposit</button></td>
+<td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cheque" value="cheque">Cheque Deposit</button></td> 
+</tr><tr>
+<td>&nbsp;</td></tr>
 </table>
 </form>
 </body>
