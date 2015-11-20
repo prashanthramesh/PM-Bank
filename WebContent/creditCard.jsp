@@ -9,7 +9,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
 
-<title>Withdraw</title>
+<title>CreditCard</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -85,8 +85,9 @@
 <%
 try
 {
-	PreparedStatement state=connect.prepareStatement("SELECT * FROM CREDITCARD WHERE "+session.getAttribute( "currentID" ));
-	ResultSet result=state.executeQuery();
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM CREDITCARD WHERE email=?");
+	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+	ResultSet result=state.executeQuery();;
 	
 	if(result.next()){
 		
@@ -109,7 +110,7 @@ try
 %>
 <tr><td><p align=center><b>No Credit Card Issued </b></p></td></tr>
 <tr><td><p align=center>Please apply for a new credit card</p></td></tr>
-<tr><td colspan=2 align=center bgcolor="#D5FFD5"><button type="submit"><u>A</u>pply Credit Card</button></td></tr>	
+<tr><td colspan=2 align=center><button type="submit"><u>A</u>pply Credit Card</button></td></tr>	
 <tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentID" )%>'>Home</a></div></td></tr>		
 <%		
 	}
