@@ -159,4 +159,14 @@
     <servlet-name>PayTransfer</servlet-name>
     <url-pattern>/PayTransfer</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InvestAmtType</display-name>
+    <servlet-name>InvestAmtType</servlet-name>
+    <servlet-class>login.InvestAmtType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InvestAmtType</servlet-name>
+    <url-pattern>/InvestAmtType</url-pattern>
+  </servlet-mapping>
 </web-app>
