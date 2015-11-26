@@ -66,7 +66,7 @@
                         <a href='investMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Investments</a>
                     </li>
                     <li >
-                        <a href='forgotPassword.jsp=<%=session.getAttribute( "currentUser" )%>'>Mortgage</a>
+                        <a href='mortgage.jsp=<%=session.getAttribute( "currentUser" )%>'>Mortgage</a>
                     </li>
                      <li >
                         <a href='forgotPassword.jsp=<%=session.getAttribute( "currentUser" )%>'>Change Password</a>

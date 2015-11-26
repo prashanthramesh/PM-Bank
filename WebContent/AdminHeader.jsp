@@ -44,7 +44,7 @@
                         <a href='custTransaction.jsp'>Transaction History</a>
                     </li>
                      <li >
-                        <a href='custWithdraw.jsp'>Withdraw</a>
+                        <a href='custWithdraw.jsp'>Withdraw</a>	
                     </li>
                                          <li >
                         <a href='custDeposit.jsp'>Deposit</a>
