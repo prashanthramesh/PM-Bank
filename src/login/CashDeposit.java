@@ -48,9 +48,7 @@ public class CashDeposit extends HttpServlet {
 		String balance = request.getParameter("balance");
 		String deposit = request.getParameter("depamt");
 		
-		System.out.println("accType :"+accType);
-		System.out.println("balance :"+balance);
-		System.out.println("deposit :"+deposit);
+		
 		
 		 try{
 

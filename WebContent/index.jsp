@@ -32,9 +32,14 @@ var Len = fname.value.length;
 var noFormat = /^\d+$/;
 if(Len == 0)
 {
-alert('Username should not be empty !!!!'); 
+alert('Customer ID should not be empty !!!!'); 
 return false;
 }
+if (Len < 2)
+{
+	alert('Customer ID should be 2 characters')
+	return false;
+	}
 if(Len < 1)
 {
 alert('Invalid customer name'); 
@@ -89,7 +94,7 @@ return true;
                 <form  name="loginform" action="login" onSubmit="return loginValidation();" method="post"id="contactForm">
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Account Number:</label>
+                            <label>Customer ID:</label>
                             <input type="text" class="form-control" name = "fname"required data-validation-required-message="Please enter your Account Number.">
                             <p class="help-block"></p>
                         </div>

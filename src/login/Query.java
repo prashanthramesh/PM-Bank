@@ -342,7 +342,7 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 			System.out.println("new balance +++"+bal);
 			dbcon = new DbConnection();
 			PreparedStatement state;
-			System.out.println("Find me here anme +++"+mail);
+			
 			  if(accType.equals("Savings")){				  
 				  state=dbcon.getConnect().prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE email=?");            
 			  }else

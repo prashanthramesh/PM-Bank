@@ -92,7 +92,7 @@ try
 </tr>
 <tr>
 <td><div align="center"><b>Contact Number </b></div></td>
-<td><%=Number%></td>
+<td> &nbsp;<%=Number%></td>
 </tr>
 <%
   }

@@ -121,52 +121,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ChequeDeposit</display-name>
-    <servlet-name>ChequeDeposit</servlet-name>
-    <servlet-class>login.ChequeDeposit</servlet-class>
+    <display-name>TransferType</display-name>
+    <servlet-name>TransferType</servlet-name>
+    <servlet-class>login.TransferType</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ChequeDeposit</servlet-name>
-    <url-pattern>/ChequeDeposit</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ReqCreditCard</display-name>
-    <servlet-name>ReqCreditCard</servlet-name>
-    <servlet-class>login.ReqCreditCard</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ReqCreditCard</servlet-name>
-    <url-pattern>/ReqCreditCard</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>PayeeType</display-name>
-    <servlet-name>PayeeType</servlet-name>
-    <servlet-class>login.PayeeType</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PayeeType</servlet-name>
-    <url-pattern>/PayeeType</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>PayTransfer</display-name>
-    <servlet-name>PayTransfer</servlet-name>
-    <servlet-class>login.PayTransfer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PayTransfer</servlet-name>
-    <url-pattern>/PayTransfer</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>InvestAmtType</display-name>
-    <servlet-name>InvestAmtType</servlet-name>
-    <servlet-class>login.InvestAmtType</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>InvestAmtType</servlet-name>
-    <url-pattern>/InvestAmtType</url-pattern>
+    <servlet-name>TransferType</servlet-name>
+    <url-pattern>/TransferType</url-pattern>
   </servlet-mapping>
 </web-app>

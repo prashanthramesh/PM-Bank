@@ -161,7 +161,7 @@ return true;
 <input type="radio" name="gen" value="female"/> Female
 
 
-<div class="controls">Date of Birth(MM-DD-YYYY)
+<div class="controls">Date of Birth
 <input type="text" class="form-control" name="dob" value="" maxlength="15"/></div>
 <div class="controls">Email
 <input class="form-control" type="text" name="email" value="" />
