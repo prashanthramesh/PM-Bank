@@ -5,6 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/modern-business.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -28,8 +33,10 @@
                  
                      
                      <li class = "dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href='pendAccReq.jsp'>Approve User</a>
+                        <a href='pendAccReq.jsp' class="dropdown-toggle" data-toggle="dropdown" >Approve User<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                          <li>
+                      
                                 <a href='custRegister.jsp'>Add User</a>
                             </li>
                              <li>
@@ -38,7 +45,7 @@
                              <li>
                                  <a href='DeleteUser.jsp'>Delete User</a>
                             </li>
-                        
+                        </ul>
                     </li>
                     <li >
                         <a href='custTransaction.jsp'>Transaction History</a>
