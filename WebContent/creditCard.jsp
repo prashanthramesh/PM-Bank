@@ -50,7 +50,7 @@ try
 %>
 <tr><td><p align=center><b>No Credit Card Issued </b></p></td></tr>
 <tr><td><p align=center>Please apply for a new credit card</p></td></tr>
-<tr><td colspan=2 align=center><button type="submit"><u>A</u>pply Credit Card</button></td></tr>	
+<tr><td colspan=2 align=center><button class="btn btn-primary" type="submit">Apply Credit Card</button></td></tr>	
 <tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td></tr>		
 <%		
 	}

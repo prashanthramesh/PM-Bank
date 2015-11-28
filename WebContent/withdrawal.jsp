@@ -19,18 +19,17 @@
     <fieldset>
 <legend><b>Withdraw</b></legend>
 <h3 align=center> Withdraw Portal</h3>
-<p align=center>Please select the Account from which Money needs to be Withdrawn </p>
+<p align=center>Please select the Account from which Money needs to be Withdrawn.</p>
 <form name="withdrawform" action="withdrawMny.jsp" method="post">
 <table width=50% align=center cellpadding=5 cellspacing=0>
 <tr> 
 <tr>
-<td><div align="right"> Select Account </div></td>
+<td><div style = "padding-right:10px;"align="right"> Select Account </div></td>
 <%
 String savAcc="";
 String  chkAcc="";
 try
 {
-    System.out.println("++++++++ current USer ++++"+session.getAttribute( "currentUser"));
     PreparedStatement state=connect.prepareStatement("SELECT * FROM savacc WHERE email=?");
 	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 	ResultSet result=state.executeQuery();
@@ -65,9 +64,8 @@ state1.close();
 </tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td width="43%">&nbsp;</td><tr>
-<td colspan=2 align=center><button type="submit" name="withdraw" value="withdraw">Proceed to Withdraw</button>
+<td colspan=2 align=center><button style = " margin-left: 65px;margin-top: -25px;" class="btn btn-primary" type="submit" name="withdraw" value="withdraw">Proceed to Withdraw</button>
 </tr>
-<tr><td>&nbsp;</td></tr>
 </table>
 </form>
 </fieldset>

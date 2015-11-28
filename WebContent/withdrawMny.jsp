@@ -49,7 +49,7 @@ return false;
 <body>
 
  <fieldset>
-<legend><b>Withdraw</b></legend>
+
 <h3 align=center> Withdraw Amount </h3>
 <p align=center>Please enter the amount to be Withdrawn </p>
 <form name="mnywith" action="WithdrawMny" onSubmit="return cashValid();" method="post">
@@ -98,12 +98,12 @@ try
   state.close();
   %>
 <tr>
-<td height="25"><div align="right">Account Type :</div></td>
+<td height="25"><div style = "margin-left:85px;" align="right"><b>Account Type :</b>&nbsp;</div></td>
 <td><%=AccountType%></td>
 </tr>
 <tr>
 <tr>
-<td height="25"><div align="right">Account Number :</div></td>
+<td height="25"><div style = "margin-left:85px;" align="right"><b>Account Number :</b>&nbsp;</div></td>
 <td><%=accNo%></td>
 </tr>
 <tr>
@@ -117,13 +117,14 @@ e.getMessage();
 }
 %>	
 <tr>
-<td height="25"><div align="right">Withdraw amount :</div></td>
-<td><input type="text" name="withamt" value="" ></td>
+<td height="25"><div align="right"><b>Withdraw amount :</b>&nbsp;</div></td>
+<td><input type="text" name="withamt" value="" maxlength = "8"></td>
 </tr>
-<tr>
-<td colspan=2 align=center bgcolor="#D5FFD5"><button type="submit" name="with" value="with"><u>W</u>ithdraw</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
 <tr><td>&nbsp;</td></tr>
-<tr><td colspan="2"><div align="center"><a href="withdrawal.jsp">Switch Account</a></div></td></tr>
+<tr>
+<td colspan=2 align=center><button style = "margin-left:110px;"class="btn btn-primary" type="submit" name="with" value="with">Withdraw</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="reset">Reset</button></td> 
+<tr><td>&nbsp;</td></tr>
+<tr><td colspan="2"><div style = "margin-left:85px;"align="center"><a href="withdrawal.jsp">Switch Account</a></div></td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 </form>

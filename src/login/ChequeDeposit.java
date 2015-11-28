@@ -19,8 +19,8 @@ maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50)   // 50MB
 public class ChequeDeposit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private final String UPLOAD_DIRECTORY = "C:/uploads";
-	 private static final String SAVE_DIR = "uploadFiles";
+	 public final String UPLOAD_DIRECTORY = "G:/uploads";
+	 public static final String SAVE_DIR = "G:/uploads";
        
     /**
      * @see HttpServlet#HttpServlet()

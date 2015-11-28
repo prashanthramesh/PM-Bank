@@ -13,6 +13,64 @@
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript">
+function payValid()
+{
+var BilaccNo = document.payform.BilaccNo;
+var billAmt = document.payform.billAmt;
+
+
+if(validRecNo(BilaccNo,7)){	
+if(validAmount(billAmt)){
+	
+	return true;
+
+}
+}
+return false;		
+}
+
+
+function validRecNo(recNo,lenth)
+{
+var len = recNo.value.length;
+var noFormat = /^\d+$/;
+if(len < 7)
+{
+	alert('Please enter Valid Bill Number');
+	return false;	
+}
+if(recNo.value.match(noFormat)){
+return true;
+} 
+else
+{
+alert('Bill Number is Invalid');
+return false;	
+}
+}
+
+
+function validAmount(amount)
+{
+var len = amount.value.length;
+var noFormat = /^\d+.?\d*$/;
+if(len == 0)
+{
+	alert('Please enter Amount to Pay');
+	return false;	
+}	
+if(amount.value.match(noFormat)){
+return true;
+} 
+else
+{
+alert('Entered Amount is Invalid');
+return false;	
+}
+}
+
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,7 +79,7 @@
 <legend><b>Pay</b></legend>
 <h3 align=center> Bill Payment </h3>
 <p align=center>Please enter the amount to be Payed</p>
-<form name="payform" action="PayTransfer" onSubmit="return payValid();" method="post">
+<form style = "line-height:35px;"name="payform" action="PayTransfer" onSubmit="return payValid();" method="post">
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td>&nbsp;</td><tr>
 <%
@@ -127,14 +185,15 @@ System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage
 
 <tr>
 <td height="25"><div align="right">Payee Bill No :</div></td>
-<td><input type="text" name="BilaccNo" value="" maxlength="7"></td>
+<td><input style = "height:40px;margin-bottom:20px;"type="text" name="BilaccNo" value="" maxlength="7"></td>
 </tr>
 <tr>
 <td height="25"><div align="right">Bill Amount :</div></td>
-<td><input type="text" name="billAmt" value="" ></td>
-</tr> 
+<td><input style = "height:40px;" type="text" name="billAmt" value="" ></td>
+</tr>
+<tr><td>&nbsp;</td></tr> 
 <tr>
-<td colspan=2 align=center><button type="submit" name="Paymny" value="Paymny">Pay </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
+<td colspan=2 align=center><button style = "margin-left:60px;"class="btn btn-primary" type="submit" name="Paymny" value="Paymny">Pay </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="reset">Reset</button></td> 
 <tr><td>&nbsp;</td></tr>
 <tr><td colspan="2"><div align="center"><a href="paybills.jsp">Switch Payee Type \ Account</a></div></td></tr>
 <tr><td>&nbsp;</td></tr>

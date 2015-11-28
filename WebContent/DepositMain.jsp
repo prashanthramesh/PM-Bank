@@ -18,13 +18,14 @@
 </head>
 <body>
 <body>
+<legend><b>Deposit</b></legend>
 <p align=center>Please select the Account in which Money needs to be deposited </p>
 <form name="depositform" action="Deposit"  method="POST">
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td width="43%">&nbsp;</td>
 <tr> 
 <tr>
-<td><div align="right">Account </div></td>
+<td><div style = "padding-right:10px;"align="right">Account: </div></td>
 <%
 String savAcc="";
 String  chkAcc="";
@@ -58,14 +59,14 @@ state1.close();
 }
 %>
 <td>
-<select style="width: 220px;" name="accOption">
+<select name="accOption">
   <option value="'sav'+<%=savAcc%>">Savings Account (<%=savAcc%>)</option>
   <option value="'chq'+<%=chkAcc%>">Chequing Account (<%=chkAcc%>)</option>
 </select>
 </tr>
 <tr><td width="43%">&nbsp;</td><tr>
 <td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cash" value="cash">Cash Deposit</button></td>
-<td colspan=2 align=center><button class="btn btn-primary"  type="submit" name="cheque" value="cheque">Cheque Deposit</button></td> 
+<td colspan=2 align=center><button style = "margin-left:-410px;"class="btn btn-primary"  type="submit" name="cheque" value="cheque">Cheque Deposit</button></td> 
 </tr><tr>
 <td>&nbsp;</td></tr>
 </table>

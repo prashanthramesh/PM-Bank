@@ -126,7 +126,7 @@ try
 </td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td colspan=2 align=center><button type="submit"><u>A</u>pply for Mortgage</button></td></tr>	
+<tr><td colspan=2 align=center><button style = "margin-top:-20px;margin-left:85px;"class="btn btn-primary" type="submit">Apply for Mortgage</button></td></tr>	
 <tr><td>&nbsp;</td></tr>
 <tr><td colspan=2><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td></tr>		
 <%		

@@ -48,7 +48,7 @@ try
 	
 	if(AccountType.equals("Savings"))
 	{
-		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE SAVACCNO=?");	
+		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE SAVACC=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
@@ -58,7 +58,7 @@ try
 	
 	}else{
 		
-		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE CHCKACCNO=?");	
+		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE CHCKACC=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
@@ -102,10 +102,10 @@ System.out.println("---------> error here DEPOSIT DETAIL CASH---->"+e.getMessage
 <tr>
 <tr><td>&nbsp;</td></tr>
 <tr>
-<td colspan=2 align=center><button type="submit" name="dePo" value="dePo"><u>D</u>eposit </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"><u>R</u>eset</button></td> 
+<td colspan=2 align=center><button class="btn btn-primary" type="submit" name="dePo" value="dePo">Deposit </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="reset">Reset</button></td> 
 </tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td colspan="2"><div align="center"><a href="depositMain.jsp">Switch Account</a></div></td></tr>
+<tr><td colspan="2"><div align="center"><a href="DepositMain.jsp">Switch Account</a></div></td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 </form>

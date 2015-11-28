@@ -29,7 +29,7 @@
 <tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Mobile Bill">Mobile Bill<br></td></tr>
 <tr><td>&nbsp;</td><td ><input type="radio" name="option" value="Water Bill">Water Bill<br></td></tr>
 <tr><td>&nbsp;</td><tr>
-<td><div align="right">Account </div></td>
+<td><div style = "padding-right:10px;" align="right">Account </div></td>
 <%
 String SaccNo="";
 String ChaccNo="";
@@ -59,14 +59,14 @@ result1.close();
 }
 %>
 <td width="57%">
-<select style="width: 220px;" name="accOption">
+<select name="accOption">
   <option value="'sav'+<%=SaccNo%>">Savings Account (<%=SaccNo%>)</option>
   <option value="'chq'+<%=ChaccNo%>">Chequing Account (<%=ChaccNo%>)</option>
 </select>
 </td>
 </tr>
 <tr><td width="43%">&nbsp;</td><tr>
-<tr><td colspan=2 align=center><button type="submit" name="pay" value="pay">Proceed to Bill Payment</button><td></tr>
+<tr><td colspan=2 align=center><button style = "margin-left:90px;"class="btn btn-primary"type="submit" name="pay" value="pay">Proceed to Bill Payment</button><td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 </form>

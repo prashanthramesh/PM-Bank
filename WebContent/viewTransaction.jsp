@@ -66,7 +66,7 @@ result.close();
 state.close();
 
 %>
-<tr><td colspan="6"><div align="center"><a href='accountInfo.jsp?value=<%=session.getAttribute( "currentID" )%>'>Account</a></div></td></tr>
+<tr><td colspan="6"><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentID" )%>'>Account</a></div></td></tr>
 </table>
 </fieldset>
 </body>

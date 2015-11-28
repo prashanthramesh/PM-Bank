@@ -36,7 +36,7 @@ public class UpdateTrans {
 		    PreparedStatement state1=con.prepareStatement("INSERT INTO TRANS VALUES(?,?,?,?,?,?)");   
 		    state1.setString(1,accNo);
 		    state1.setString(2,accType);
-		    state1.setString(3,new java.text.SimpleDateFormat("yyyy:mm:dd hh:mm:ss").format(new Date()));
+		    state1.setString(3,new java.text.SimpleDateFormat("MM/dd/yyyy h:mm:ss a").format(new Date()));
 		    state1.setString(4,transType);
 		    state1.setString(5,amount);
 		    state1.setString(6,custID);
