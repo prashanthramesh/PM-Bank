@@ -72,7 +72,7 @@ try
 	String msg;
 	float newAmt;
 	
-	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	DateFormat dateFormat = new SimpleDateFormat("MM/DD/yyyy");
 	
 	Date currdate = new Date();	
 	
@@ -97,6 +97,7 @@ try
 
 		   int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
 		   int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+
 		   
 		   if(diffYear > 0)
 		   {
