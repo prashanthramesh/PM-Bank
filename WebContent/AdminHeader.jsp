@@ -46,7 +46,7 @@
                                  <a href='UpdateUser.jsp'>Mortgage</a>
                             </li>
                              <li>
-                                 <a href='DeleteUser.jsp'>Credit Card</a>
+                                 <a href='pendCreditReq.jsp'>Credit Card</a>
                             </li>
                         </ul>
                     </li>

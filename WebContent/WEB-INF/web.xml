@@ -189,4 +189,14 @@
     <servlet-name>UserOpr</servlet-name>
     <url-pattern>/UserOpr</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReqApproval</display-name>
+    <servlet-name>ReqApproval</servlet-name>
+    <servlet-class>login.ReqApproval</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReqApproval</servlet-name>
+    <url-pattern>/ReqApproval</url-pattern>
+  </servlet-mapping>
 </web-app>

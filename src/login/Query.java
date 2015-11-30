@@ -395,6 +395,37 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		}
 		
 	}
+	
+	public void createCreditCard(String email,String id, String no,String ccv, String exp) {
+		try
+		{
+			dbcon = new DbConnection();
+			PreparedStatement state = dbcon.getConnect().prepareStatement("INSERT INTO creditcard VALUES(?,?,?,?,?,?,?)");
+		    state.setString(1,no);
+		    state.setString(2,"1000");
+		    state.setString(3,"0");
+		    state.setString(4,ccv);
+		    state.setString(5,exp);
+		    state.setString(6,email);
+		    state.setString(7,id);
+
+		    state.executeUpdate();	
+		    state.close();
+			dbcon.clsConnect();
+MailNotification mail = new MailNotification(email);
+		    
+		    String text = "Hello "+ 
+		    		      "\n\n Your Credit card request is be approved"+
+		    		      "\n\n Card No : "+no+	
+		    		      "\n\n Please log into portal for more details: "+	
+		    		      "\n\n Note : Please do not reply to this E-Mail Notification";
+		    
+		    mail.sendMail( "Credit Card Approved", text);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		
+	}
 
 
 	public void dropUserReq(String email) {
@@ -410,6 +441,20 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		}
 		
 	}
+	
+	public void dropCreditReq(String email) {
+	       try{
+	    	    dbcon = new DbConnection();
+				PreparedStatement state=dbcon.getConnect().prepareStatement("DELETE FROM creditcardreq WHERE email=?");
+				state.setString(1,email);
+				state.executeUpdate();	
+				state.close();
+				dbcon.clsConnect();
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+			
+		}
 	
 	public void dropMortgage(String email) {
 	       try{
