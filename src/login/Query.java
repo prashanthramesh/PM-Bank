@@ -207,6 +207,51 @@ customerId = newUser.createUserID();
 		
 	}
     
+    public void createMortgage(String email,String custID,String mortAmt,String intRate,String year,String id, String mortReason) {
+	
+       try{
+			
+    	    Calendar cal= Calendar.getInstance(); 
+    	    Calendar cal1= Calendar.getInstance(); 
+   	        cal.add(Calendar.YEAR, Integer.parseInt(year));   	    
+   	        Date date = cal.getTime();   
+   	        Date date1 = cal1.getTime();
+   	        SimpleDateFormat form = new SimpleDateFormat("MM/dd/yyyy");
+   		    String day = form.format(date);
+   		    String day1 = form.format(date1);
+   		    
+    	    dbcon = new DbConnection();
+			PreparedStatement state = dbcon.getConnect().prepareStatement("INSERT INTO mortgage VALUES(?,?,?,?,?,?,?,?,?,?)");
+			state.setString(1,email);
+		    state.setString(2,custID);
+		    state.setString(3,mortAmt);		    
+		    state.setString(4,mortAmt);
+		    state.setString(5,intRate);
+		    state.setString(6,year);
+		    state.setString(7,day1);	
+		    state.setString(8,day);
+		    state.setString(9,id);
+		    state.setString(10,mortReason);
+			state.executeUpdate();	
+			state.close();
+			
+        MailNotification mail = new MailNotification(email);
+		    
+		    String text = "Hello "+ 
+		    		      "\n\n Your Mortgage request is been approved"+
+		    		      "\n\n Mortgage Amount : "+mortAmt+	
+		    		      "\n\n Mortgage Reason : "+mortReason+	
+		    		      "\n\n Please log into portal for more details: "+	
+		    		      "\n\n Note : Please do not reply to this E-Mail Notification";
+		    
+		    mail.sendMail( "Mortgage Approved", text);
+			
+		}catch(Exception e){
+			e.getMessage();
+		}
+		
+	}
+    
     public void createMnyCard(OnlineUser userObj) {
 
 		String intialVal = "0";		
@@ -456,6 +501,19 @@ MailNotification mail = new MailNotification(email);
 			
 		}
 	
+	public void dropMortgageReq(String email) {
+	       try{
+	    	    dbcon = new DbConnection();
+				PreparedStatement state=dbcon.getConnect().prepareStatement("DELETE FROM mortgagereq WHERE email=?");
+				state.setString(1,email);
+				state.executeUpdate();	
+				state.close();
+				dbcon.clsConnect();
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+			
+		}
 	public void dropMortgage(String email) {
 	       try{
 	    	    dbcon = new DbConnection();
@@ -616,7 +674,7 @@ MailNotification mail = new MailNotification(email);
 	}
   }
 	
-   public void reqMortgage(String custID,String email,String amount,String interest,String year){
+   public void reqMortgage(String custID,String email,String amount,String interest,String year, String mortReason){
 		
 		try{
 			System.out.println("++++++ custID credit card +++"+custID);
@@ -624,12 +682,13 @@ MailNotification mail = new MailNotification(email);
 			dbcon = new DbConnection();
 			PreparedStatement state1;
 			   
-		    state1= dbcon.getConnect().prepareStatement("INSERT INTO mortgagereq VALUES(?,?,?,?,?)");   
+		    state1= dbcon.getConnect().prepareStatement("INSERT INTO mortgagereq VALUES(?,?,?,?,?,?)");   
 		    state1.setString(1,email);
 		    state1.setString(2,custID);
 		    state1.setString(3,amount);
 		    state1.setString(4,interest);
 		    state1.setString(5,year);
+		    state1.setString(6,mortReason);
 		    state1.executeUpdate();	
 		    state1.close();		    
 		    dbcon.clsConnect();

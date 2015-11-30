@@ -44,7 +44,8 @@ public class ReqApproval extends HttpServlet {
 		dbcon = new DbConnection();
 		query = new Query();	
 		
-		if(request.getParameter("approveBut")!=null)
+		if(request.getParameter("approveBut")!=null && 
+		    request.getParameter("approveBut").equalsIgnoreCase("credapprove"))
 		{			
 			String CardNo = createCreditCard();
 			String ccvNo = createCCV();
@@ -55,7 +56,8 @@ public class ReqApproval extends HttpServlet {
 		    query.createCreditCard(email, custID, CardNo, ccvNo, expiry);
 		    query.dropCreditReq(email);
 		    response.sendRedirect("pendCreditReq.jsp"); 
-		}else
+		}else if(request.getParameter("declineBut")!=null && 
+			    request.getParameter("declineBut").equalsIgnoreCase("creddecline"))
 		{
 			try
 			{
@@ -63,7 +65,7 @@ public class ReqApproval extends HttpServlet {
 				MailNotification mail = new MailNotification(request.getParameter("email"));
 			    
 			    String text = "Hello "+ 
-			    		      "\n\n Sorry your Credit card request is be Declined"+
+			    		      "\n\n Sorry your Credit card request is been Declined"+
 			    		      "\n\n Please log into portal for more details: "+	
 			    		      "\n\n Note : Please do not reply to this E-Mail Notification";
 			    
@@ -74,6 +76,41 @@ public class ReqApproval extends HttpServlet {
 				response.sendRedirect("pendCreditReq.jsp"); 
 			}
 			response.sendRedirect("pendCreditReq.jsp"); 
+		}else if(request.getParameter("approveBut")!=null && 
+			    request.getParameter("approveBut").equalsIgnoreCase("mortapprove"))
+		{
+			String email = request.getParameter("email");
+			String custID =request.getParameter("id");
+			String mortAmt =request.getParameter("mortgageAmt");
+			String intRate =request.getParameter("intRate");
+			String year =request.getParameter("yr");
+			String id  = createCCV();
+			String mortReason = request.getParameter("reason");
+			query.createMortgage(email,custID,mortAmt,intRate,year,id,mortReason);
+			query.dropMortgageReq(email);
+			response.sendRedirect("pendMortgageReq.jsp"); 
+			
+		}else if(request.getParameter("declineBut")!=null && 
+			    request.getParameter("declineBut").equalsIgnoreCase("mortdecline"))
+		{
+			try
+			{
+			query.dropMortgageReq(request.getParameter("email"));
+			MailNotification mail = new MailNotification(request.getParameter("email"));
+			 String text = "Hello "+ 
+	    		      "\n\n Sorry your Mortgage request is been Declined"+
+	    		      "\n\n Please log into portal for more details: "+	
+	    		      "\n\n Note : Please do not reply to this E-Mail Notification";
+	    
+	         mail.sendMail( "Mortgage Application Declined", text);
+	         response.sendRedirect("pendMortgageReq.jsp");
+			
+			}catch(Exception e)
+			{
+				e.getMessage();
+				response.sendRedirect("pendMortgageReq.jsp");
+			}
+			
 		}
 	}
 	

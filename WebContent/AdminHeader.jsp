@@ -43,7 +43,7 @@
                                 <a href='custRegister.jsp'>Cheque Deposit</a>
                             </li>
                              <li>
-                                 <a href='UpdateUser.jsp'>Mortgage</a>
+                                 <a href='pendMortgageReq.jsp'>Mortgage</a>
                             </li>
                              <li>
                                  <a href='pendCreditReq.jsp'>Credit Card</a>

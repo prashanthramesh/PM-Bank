@@ -81,7 +81,7 @@ public class ReqMortgage extends HttpServlet {
 			{
 				try{
 			           query.reqMortgage(String.valueOf(ses.getAttribute("custID")),String.valueOf(ses.getAttribute("currentUser")),
-			        		   mortamt,interest,year);
+			        		   mortamt,interest,year,mortReason);
 			           ses.setAttribute("mortgageStatus", "Mortgage Application is Sent for Bank Approval");
 				       response.sendRedirect("resultMortgage.jsp");
 			          
