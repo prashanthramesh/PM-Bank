@@ -42,14 +42,10 @@ public class UserOpr extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("came here 1  +++++++++++++Came here User Operation");
 		HttpSession ses = request.getSession();
 		dbcon = new DbConnection();
 		query = new Query();
-		String option = request.getParameter("buttonVal");
-		System.out.println("came here 2  +++++++++++++"+option);
-		System.out.println("came here 3  +++++++++++++"+(request.getParameter("email")));
-		
+		String option = request.getParameter("buttonVal");		
 		
 		if(option.equalsIgnoreCase("create"))
 		{
@@ -113,6 +109,18 @@ public class UserOpr extends HttpServlet {
 			query.updateUserInfo(user, request.getParameter("custID"));
 			ses.setAttribute("userStatus", "Customer Information Updated Successfully");
 		    response.sendRedirect("resultUserOpr.jsp");
+		}else if(option.equalsIgnoreCase("view"))
+		{
+			if(query.checkUserCustID(request.getParameter("custid")))
+			{
+				RequestDispatcher rs = request.getRequestDispatcher("ViewTranCust.jsp");
+	            rs.forward(request, response);
+			    
+			}else
+			{
+				ses.setAttribute("userStatus", "Customer ID entered doesnt Exist ! Please enter correct Customer ID");
+			    response.sendRedirect("resultUserOpr.jsp");
+			}			
 		}
 		
 	}

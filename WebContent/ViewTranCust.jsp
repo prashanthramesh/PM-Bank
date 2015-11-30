@@ -1,6 +1,5 @@
 <%@ page import="java.sql.*"%>
 <%@ include file="dbconn.jsp" %>
-<%@ include file="header.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,11 +13,11 @@
 </head>
 <body>
 
-    <fieldset>
+ <fieldset>
 &nbsp;
 <legend><b>Transactions</b></legend>
-<h3 align=center> View Transactions</h3>
-<p align=center>Below is the Detailed Transaction Information of the Account</p>
+<h3 align=center> View Customer Transactions</h3>
+<p align=center>Below is the Detailed Transaction Information of the Customer</p>
 <table width="1000px" align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5" >
 <tr><td>&nbsp;<td></tr>
 
@@ -33,12 +32,11 @@
 
 System.out.println("++++++++ current Id ++++"+session.getAttribute( "custID"));
 	PreparedStatement state=connect.prepareStatement("SELECT * FROM TRANS WHERE custID=?");
-	state.setString(1,String.valueOf(session.getAttribute("custID")));
+	state.setString(1,String.valueOf(request.getParameter("custid").trim()));
 	ResultSet result= state.executeQuery();	
 	
 	if(!result.next()){ 
 		%>
-		<tr><td><div align="center"><p>New Account </p></div></td></tr>
 		<tr><td><div align="center"><p>No Transactions Available </p></div></td></tr>
 	  <% 
 	}
@@ -66,7 +64,7 @@ result.close();
 state.close();
 
 %>
-<tr><td colspan="6"><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Account</a></div></td></tr>
+<tr><td colspan="6"><div align="center"><a href='WelcomeAdmin.jsp?'>Home</a></div></td></tr>
 </table>
 </fieldset>
 </body>
