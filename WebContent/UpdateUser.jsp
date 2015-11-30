@@ -52,18 +52,16 @@ return false;
 
 </head>
 <body>
-
- 
-   <p style = "margin-top: 40px;margin-bottom: 0px;margin-left: -55px;"align=center>Please enter the Customer Account Number to be edited.</p>
-<form name="cashform" action="" onSubmit="return cashValid();" method="post">
+<p style = "margin-top: 40px;margin-bottom: 0px;margin-left: -55px;"align=center>Please enter the Customer ID to fetch customer Information</p>
+<form name="cashform" action="UserOpr" onSubmit="return cashValid();" method="post">
 <table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
 <tr><td>&nbsp;</td><tr>	
 <tr>
-<td height="25"><div align="right" style = "padding-right:10px;"><b>Account Number :</b></div></td>
-<td><input type="text" name="depamt" value="" maxlength="16"/></td>
+<td height="25"><div align="right" style = "padding-right:10px;"><b>Customer ID:</b></div></td>
+<td><input type="text" name="custid" value="" maxlength="16"/></td>
 </tr>
 <tr>
-<td colspan=2 align=center><button style = "margin-top:20px;margin-left:75px;"class="btn btn-primary" type="submit" name="dePo" value="dePo">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style = "margin-top:20px;" class="btn btn-primary" type="reset">Reset</button></td> 
+<td colspan=2 align=center><button style = "margin-top:20px;margin-left:75px;"class="btn btn-primary" type="submit" name="buttonVal" value="fetch">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style = "margin-top:20px;" class="btn btn-primary" type="reset">Reset</button></td> 
 </table>
 </form>
 </body>

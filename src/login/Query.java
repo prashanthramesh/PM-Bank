@@ -32,6 +32,54 @@ public class Query
      }
         return st;                 
     }   
+    
+    public boolean checkUserEmail(String email) 
+    {
+     boolean st =false;
+     try{
+    	dbcon = new DbConnection();
+        PreparedStatement ps =dbcon.getConnect().prepareStatement("select * from Account_details where email=?");
+        ps.setString(1, email);
+        ResultSet rs =ps.executeQuery();
+        st = rs.next();       
+     }catch(Exception e)
+     {
+         e.printStackTrace();
+     }
+        return st;                 
+    }  
+    
+    public boolean checkUserCustID(String custID) 
+    {
+     boolean st =false;
+     try{
+    	dbcon = new DbConnection();
+        PreparedStatement ps =dbcon.getConnect().prepareStatement("select * from Account_details where cust_ID=?");
+        ps.setString(1, custID);
+        ResultSet rs =ps.executeQuery();
+        st = rs.next();       
+     }catch(Exception e)
+     {
+         e.printStackTrace();
+     }
+        return st;                 
+    }   
+    
+    public boolean checkUserEmailReq(String email) 
+    {
+     boolean st =false;
+     try{
+    	dbcon = new DbConnection();
+        PreparedStatement ps =dbcon.getConnect().prepareStatement("select * from pending_request where email=?");
+        ps.setString(1, email);
+        ResultSet rs =ps.executeQuery();
+        st = rs.next();       
+     }catch(Exception e)
+     {
+         e.printStackTrace();
+     }
+        return st;                 
+    }   
    
     
     public boolean registerUser(OnlineUser user){
@@ -55,12 +103,6 @@ customerId = newUser.createUserID();
 
 		    state.executeUpdate();	
 		    state.close();
-		    
-	           
-	        		   
-		    
-		   
-			
 		}
     
     catch(Exception e){
@@ -234,6 +276,39 @@ customerId = newUser.createUserID();
   		         e.printStackTrace();
   		     }		    	
   }
+    
+    public void updateUserInfo(OnlineUser user, String custID){
+    	  try{
+    		
+    				dbcon = new DbConnection();
+    				PreparedStatement ps = dbcon.getConnect().prepareStatement("UPDATE Account_details SET first_name=?,last_name=?,email=?,dob=?,gender=?,phone_no=?"
+    						+ " WHERE cust_ID=?");
+    				ps.setString(1, user.getFirstName());
+      		        ps.setString(2, user.getLastName());
+      		        ps.setString(3, user.getEmail());      		        
+      		        ps.setString(4, user.getDob());
+      		        ps.setString(5, user.getGender());
+      		        ps.setString(6, user.getPhoneNumber());
+      		        ps.setString(7, custID);
+
+      		        
+    				ps.executeUpdate();	
+    		        ps.close();
+    		        dbcon.clsConnect();
+    		        
+    		        MailNotification mail = new MailNotification(user.getEmail());
+    			    
+    			    String text = "Hello "+user.getFirstName()+ 
+    			    		      "\n\n Your Existing Personal Information in the Bank is Updated"+
+    			    		      "\n\n Note : Please do not reply to this E-Mail Notification";
+    			    
+    			    mail.sendMail( "Personal Information Updated", text);
+    		     }catch(Exception e)
+    		     {
+    		         e.printStackTrace();
+    		     }		    	
+    }
+
 
 
 	public OnlineUser fetchUserInfo(String email) {

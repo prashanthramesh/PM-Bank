@@ -1,3 +1,8 @@
+<%@ page import="java.sql.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="java.util.*" %>
+<%@ page import="java.security.*" %>
+<%@ include file="dbconn.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -146,34 +151,70 @@ return true;
             </nav>
  <div class="container" style = "width:300px;">
 <div class="row">
-<legend><b>Add User</b></legend>
-<h3 align=center> New User Registration</h3>
-<p align=center>Please complete the below details to create an account and become a customer of PM </p>
-<form name="registerform" action="UserOpr" onSubmit="return regValidation();" method="post" id="contactForm" style ="line-height:30px;" >
-<div class="controls">First Name
-<input class="form-control" type="text" name="fname" value="" />
-</div>
-<div class="controls">Last Name
-<input class="form-control" type="text" name="lname" value="" />
-</div>
-<div class="controls">Gender</div>
-<input type="radio" name="gen" value="male"/> Male
-<input type="radio" name="gen" value="female"/> Female
-
-
-<div class="controls">Date of Birth(MM-DD-YYYY)
-<input type="text" class="form-control" name="dob" value="" maxlength="15"/></div>
-<div class="controls">Email
-<input class="form-control" type="text" name="email" value="" />
-</div>
-
-<div class="controls">Phone Number(xxx-xxx-xxxx)
-<input class="form-control" type="text" name="pnumber" value="">
-</div>
-<button style = "margin-top:25px;"class="btn btn-primary" name="buttonVal" value="create" type="submit"><u>C</u>reate Account</button>&nbsp;&nbsp;<button style = "margin-top:25px;" class="btn btn-primary" type="reset"><u>R</u>eset</button>
+<fieldset>
+<legend><b>Update </b></legend>
+<h3 align=center> Personal Information</h3>
+<p align=center>You can view and update your personal information here</p>
+<form name="updateform" action="UserOpr" onSubmit="return updValidation();" method="post">
+<table width=50% align=center cellpadding=5 cellspacing=0 bgcolor="#D5FFD5">
+<tr><td>&nbsp;</td><tr>
+<%
+try
+{	
+	String custID = request.getParameter("custid").trim();
+	PreparedStatement state=connect.prepareStatement("SELECT * FROM account_details WHERE cust_ID=?");
+	state.setString(1,custID);
+	ResultSet result=state.executeQuery();
+	
+	while(result.next()){
+		
+		String FirstName=result.getString("first_name");
+	    String LastName=result.getString("last_name");
+	    String Dateofbirth=result.getString("dob");
+	    String Gender=result.getString("gender");
+	    String Email=result.getString("email");
+	    String Number=result.getString("phone_no");		    
+%>	
+<tr>
+<td height="25"><div align="right">First Name</div></td>
+<td><input type="text" name="fname" value="<%=FirstName%>" /></td>
+</tr>
+<tr>
+<td height="25"><div align="right">Last Name</div></td>
+<td><input type="text" name="lname" value="<%=LastName%>" /></td>
+</tr>
+<tr>
+<tr>
+<td height="25"><div align="right">Gender</div></td>
+<td><input type="text" name="gen" value="<%=Gender%>" /></td>
+</tr>
+<tr>
+<tr>
+<td height="25"><div align="right">Date of Birth</div></td>
+<td><input type="text" name="dob" value="<%=Dateofbirth%>" maxlength="8"/></td>
+</tr>
+<tr>
+<td height="25"><div align="right">Email</div></td>
+<td><input type="text" name="email" value="<%=Email%>" /></td>
+</tr>
+<tr>
+<td height="25"><div align="right">Phone Number</div></td>
+<td><input type="text" name="pnumber" value="<%=Number%>" maxlength="10"></td>
+</tr>
+<tr><td><input name="custID" type="hidden"  value=<%=custID%>></td></tr>  
+<%
+}
+	state.close();
+	
+}catch(Exception e){
+	System.out.println("---------> error here cust id---->"+e.getMessage());
+}
+%>
+<tr>
+<td colspan=2 align=center><button style = "margin-top:20px;margin-left:75px;"class="btn btn-primary" type="submit" name="buttonVal" value="update">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style = "margin-top:20px;" class="btn btn-primary" type="reset">Reset</button></td> 
+<tr><td>&nbsp;</td></tr>
+</table>
 </form>
-</div>
-</div>
+</fieldset>
 </body>
-
 </html>

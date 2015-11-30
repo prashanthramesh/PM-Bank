@@ -33,24 +33,36 @@
                  
                      
                      <li class = "dropdown">
-                        <a href='pendAccReq.jsp' class="dropdown-toggle" data-toggle="dropdown" >Approve User<b class="caret"></b></a>
+                        <a href='pendAccReq.jsp' class="dropdown-toggle" data-toggle="dropdown" >Approve Requests<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                          <li>
                       
-                                <a href='pendAccReq.jsp'>Approve User</a>
+                                <a href='pendAccReq.jsp'>New User</a>
                             </li>
-                         <li>
-                      
+                         <li>                      
+                                <a href='custRegister.jsp'>Cheque Deposit</a>
+                            </li>
+                             <li>
+                                 <a href='UpdateUser.jsp'>Mortgage</a>
+                            </li>
+                             <li>
+                                 <a href='DeleteUser.jsp'>Credit Card</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class = "dropdown">
+                        <a href='pendAccReq.jsp' class="dropdown-toggle" data-toggle="dropdown" >User Operation<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                         <li>                      
                                 <a href='custRegister.jsp'>Add User</a>
                             </li>
                              <li>
                                  <a href='UpdateUser.jsp'>Update User</a>
                             </li>
-                             <li>
-                                 <a href='DeleteUser.jsp'>Delete User</a>
-                            </li>
                         </ul>
                     </li>
+                    
+                    
                     <li >
                         <a href='custTransaction.jsp'>Transaction History</a>
                     </li>

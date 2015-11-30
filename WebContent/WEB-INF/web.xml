@@ -179,4 +179,14 @@
     <servlet-name>ReqMortgage</servlet-name>
     <url-pattern>/ReqMortgage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserOpr</display-name>
+    <servlet-name>UserOpr</servlet-name>
+    <servlet-class>login.UserOpr</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserOpr</servlet-name>
+    <url-pattern>/UserOpr</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -50,14 +50,12 @@ public class register extends HttpServlet {
 		user.setGender(request.getParameter("gen"));
 		user.setDob(request.getParameter("dob"));
 		user.setEmail(request.getParameter("email"));
-		user.setPhoneNumber(request.getParameter("pnumber"));
-		
-		
+		user.setPhoneNumber(request.getParameter("pnumber"));		
 		
 		
 		if(query.registerUser(user))
-		 {
-			out.println("Successfully Registered !!!!!!!");
+		 {  
+			    out.println("Successfully Registered !!!!!!!");
 	        	RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
 	            rs.forward(request, response);
 	        }
