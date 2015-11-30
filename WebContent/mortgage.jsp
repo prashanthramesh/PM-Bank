@@ -66,16 +66,44 @@ return false;
 <%
 try
 {
+	
+	String savAcc="";
+	String  chkAcc="";
+	
+	 PreparedStatement state1=connect.prepareStatement("SELECT * FROM savacc WHERE email=?");
+		state1.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+		ResultSet result1=state1.executeQuery();
+	while(result1.next())
+	  {
+		savAcc=result1.getString("savAcc");    
+	  }	
+	System.out.println("--------------->sav"+savAcc);
+	result1.close();  
+	state1.close();
+
+	PreparedStatement state2=connect.prepareStatement("SELECT * FROM chckacc WHERE email=?");
+	state2.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+	ResultSet result2=state2.executeQuery();
+	while(result2.next())
+	  {
+	      chkAcc=result2.getString("chkAcc"); 
+	  }	
+	System.out.println("--------------->chk"+chkAcc);
+	result2.close();  
+	state2.close();
+	
+	
 	PreparedStatement state=connect.prepareStatement("SELECT * FROM MORTGAGE WHERE email=?");
 	state.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
 	ResultSet result=state.executeQuery();;
 	String msg;
 	float newAmt;
+		
 	
 	DateFormat dateFormat = new SimpleDateFormat("MM/DD/yyyy");
 	
 	Date currdate = new Date();	
-	
+		
 	if(result.next()){
 		
 		String id=result.getString("id");
@@ -145,6 +173,18 @@ try
 </tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td><div style = "padding-right:30px;"align="right">Pay from Account: </div></td>
+<td><select name="accOption">
+  <option value="'sav'+<%=savAcc%>">Savings Account (<%=savAcc%>)</option>
+  <option value="'chq'+<%=chkAcc%>">Chequing Account (<%=chkAcc%>)</option>
+</select>
+</td>
+</tr>
+<tr><td><input name="intbalance" type="hidden"  value=<%=newAmt%>></td></tr>  
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td colspan=13 align=center><button name="buttonVal" value="pay" type="submit" ><u>P</u>ay Mortgage</button></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td colspan=13><div align="center"><a href='custHome.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Home</a></div></td></tr>	     	      	    
@@ -154,8 +194,9 @@ try
 	{
 %>
 <tr><td>&nbsp;</td></tr>
-<tr><td><p align=center>No Mortgage Issued  </p></td></tr>
-<tr><td><p align=center>Please apply for a new Mortgage  </p></td></tr>
+<tr><td colspan=2><p align=center>No Mortgage Issued  </p></td></tr>
+<tr><td colspan=2><p align=center>Please apply for a new Mortgage  </p></td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr>
 <td height="25"><div align="center">Enter Mortgage amount </div></td>
 <td><input type="text" name="mortamt" value="" ></td>
@@ -164,20 +205,20 @@ try
 <tr><td>&nbsp;</td></tr>
 <tr>
 <td align=center>Select Year and Interest </td><td>
-<select style="width: 180px;" name="mortReason">
-<option value="'1 Year 2.89'">1 Year - 2.89 % </option>
-  <option value="'2 Year 2.84'">2 Year - 2.84 % </option>
-  <option value="'3 Year 3.39'">3 Year - 3.39 % </option>
-  <option value="'4 Year 3.89'">4 Year - 3.89 % </option>
-  <option value="'5 Year 4.64'">5 Year - 4.64 % </option>
+<select style="width: 180px;" name="mortyr">
+<option value="1 Year 2.89">1 Year - 2.89 % </option>
+  <option value="2 Year 2.84">2 Year - 2.84 % </option>
+  <option value="3 Year 3.39">3 Year - 3.39 % </option>
+  <option value="4 Year 3.89">4 Year - 3.89 % </option>
+  <option value="5 Year 4.64">5 Year - 4.64 % </option>
 </select>
 </td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr>
 <td align=center>Select Reason </td><td>
 <select style="width: 180px;" name="mortReason">
-  <option value="'NewHouse'">New House </option>
-  <option value="'RefinancingMortgage'">Refinancing Mortgage </option>
+  <option value="New House">New House </option>
+  <option value="Refinancing Mortgage">Refinancing Mortgage </option>
 </select>
 </td></tr>
 <tr><td>&nbsp;</td></tr>

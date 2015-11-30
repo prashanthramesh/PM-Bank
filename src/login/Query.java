@@ -336,6 +336,20 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		
 	}
 	
+	public void dropMortgage(String email) {
+	       try{
+	    	    dbcon = new DbConnection();
+				PreparedStatement state=dbcon.getConnect().prepareStatement("DELETE FROM mortgage WHERE email=?");
+				state.setString(1,email);
+				state.executeUpdate();	
+				state.close();
+				dbcon.clsConnect();
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+			
+		}
+	
 	public void UpdateAcc(String accType,Double bal, String mail) {
 		try{
 			System.out.println("Find me here +++");
@@ -408,8 +422,7 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		    state1.executeUpdate();	
 		    state1.close();		    
 		    dbcon.clsConnect();
-	}catch(Exception e)
-	{
+	}catch(Exception e){
 		System.out.println("Failed here update amount --------->");
 		e.printStackTrace();
 	}
@@ -435,7 +448,73 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		e.printStackTrace();
 	}
   }
+	
+   public void reqMortgage(String custID,String email,String amount,String interest,String year){
 		
+		try{
+			System.out.println("++++++ custID credit card +++"+custID);
+			System.out.println("++++++ email credit card +++"+email);
+			dbcon = new DbConnection();
+			PreparedStatement state1;
+			   
+		    state1= dbcon.getConnect().prepareStatement("INSERT INTO mortgagereq VALUES(?,?,?,?,?)");   
+		    state1.setString(1,email);
+		    state1.setString(2,custID);
+		    state1.setString(3,amount);
+		    state1.setString(4,interest);
+		    state1.setString(5,year);
+		    state1.executeUpdate();	
+		    state1.close();		    
+		    dbcon.clsConnect();
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+ }
+   
+   public String getBalance(String type, String accNo){
+	   
+	    dbcon = new DbConnection();
+	    String Balance = null;
+		
+		PreparedStatement state;
+		ResultSet result;
+		
+		try
+		{
+			
+			if(type.startsWith("'sav'"))
+			{
+				state =dbcon.getConnect().prepareStatement("SELECT * FROM savacc WHERE savAcc=?");	
+				state.setString(1,accNo);
+				result=state.executeQuery();
+				
+				while(result.next()){			
+					Balance=result.getString("intialVal");
+				}
+			
+			}else{
+
+				state =dbcon.getConnect().prepareStatement("SELECT * FROM CHCKACC WHERE chkAcc=?");	
+				state.setString(1,accNo);
+				result=state.executeQuery();
+				
+				while(result.next()){			
+					Balance=result.getString("intialVal");
+				}
+				
+			}
+		 
+		  result.close();
+		  state.close();
+		  dbcon.clsConnect();		  
+		  
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return Balance;
+   }
 	
 }
 

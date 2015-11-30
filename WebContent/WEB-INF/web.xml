@@ -169,4 +169,14 @@
     <servlet-name>PayTransfer</servlet-name>
     <url-pattern>/PayTransfer</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReqMortgage</display-name>
+    <servlet-name>ReqMortgage</servlet-name>
+    <servlet-class>login.ReqMortgage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReqMortgage</servlet-name>
+    <url-pattern>/ReqMortgage</url-pattern>
+  </servlet-mapping>
 </web-app>
