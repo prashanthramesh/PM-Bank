@@ -377,6 +377,50 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 		
 	}
 	
+	public void UpdateCard(Double billAmt, String mail) {
+		try{
+			System.out.println("Find me here +++");
+			System.out.println("new balance +++"+billAmt);
+			dbcon = new DbConnection();
+			PreparedStatement state;
+						  
+		    state=dbcon.getConnect().prepareStatement( "UPDATE creditcard SET DEBIT_AMT=? WHERE email=?");            
+			state.setString(1,String.valueOf(billAmt));
+			state.setString(2,String.valueOf(mail));			
+	   	    state.executeUpdate();
+	   	    state.close();
+	   	 dbcon.clsConnect();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void UpdateCreCard(Double creAmt,Double debAmt, String mail) {
+		try{
+			System.out.println("Find me here +++");
+			System.out.println("new balance +++"+creAmt);
+			System.out.println("new balance +++"+debAmt);
+			dbcon = new DbConnection();
+			PreparedStatement state;
+						  
+		    state=dbcon.getConnect().prepareStatement( "UPDATE creditcard SET CRED_AMT=?,DEBIT_AMT=? WHERE email=?");  
+		    state.setString(1,String.valueOf(creAmt));
+			state.setString(2,String.valueOf(debAmt));
+			state.setString(3,String.valueOf(mail));			
+	   	    state.executeUpdate();
+	   	    state.close();
+	   	 dbcon.clsConnect();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void DetectAcc(String accType, Double bal, String mail) {
 		try{
 			System.out.println("Find me here +++");
@@ -386,9 +430,12 @@ MailNotification mail = new MailNotification(userObj.getEmail());
 			System.out.println("Find me here anme +++"+mail);
 			  if(accType.equals("Savings")){				  
 				  state=dbcon.getConnect().prepareStatement( "UPDATE SAVACC SET intialVal=? WHERE email=?");            
-			  }else
+			  }else if(accType.equals("Chequing"))
 			  {				  
 				   state=dbcon.getConnect().prepareStatement( "UPDATE CHCKACC SET intialVal=? WHERE email=?");	           
+			  }else
+			  {
+				  state=dbcon.getConnect().prepareStatement( "UPDATE creditcard SET CRED_AMT=? WHERE email=?");	      
 			  }
 			  
 			state.setString(1,String.valueOf(bal));

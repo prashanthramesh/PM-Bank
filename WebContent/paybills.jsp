@@ -33,6 +33,7 @@
 <%
 String SaccNo="";
 String ChaccNo="";
+String CreditNo="";
 try
 {
 
@@ -53,6 +54,16 @@ while(result1.next())
       ChaccNo=result1.getString("chkAcc"); 
   }	
 result1.close();  
+
+PreparedStatement state2=connect.prepareStatement("SELECT * FROM creditcard WHERE email=?");
+state2.setString(1,String.valueOf(session.getAttribute( "currentUser" )));
+ResultSet result2=state2.executeQuery();;
+while(result2.next())
+  {
+	CreditNo=result2.getString("CARD_NO"); 
+  }	
+result2.close();  
+
 }catch(Exception e)
 {
 	System.out.println("--------------->"+e.getMessage());
@@ -62,6 +73,7 @@ result1.close();
 <select name="accOption">
   <option value="'sav'+<%=SaccNo%>">Savings Account (<%=SaccNo%>)</option>
   <option value="'chq'+<%=ChaccNo%>">Chequing Account (<%=ChaccNo%>)</option>
+  <option value="'cre'+<%=CreditNo%>">Credit Card (<%=CreditNo%>)</option>
 </select>
 </td>
 </tr>

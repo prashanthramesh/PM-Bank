@@ -70,7 +70,7 @@ public class PayTransfer extends HttpServlet {
 	           if(Double.parseDouble(balance) < Double.parseDouble(billAmt))
 	           {
 	        	   System.out.println("came here ------->balance less");
-	        	   ses.setAttribute("passPayResult", "Payment Amount Entered Exceeds Account Balance");
+	        	   ses.setAttribute("passPayResult", "Payment Amount Entered Exceeds Balance");
 			       response.sendRedirect("passPayResult.jsp");
 			       
 	           }else
@@ -81,6 +81,7 @@ public class PayTransfer extends HttpServlet {
 		           System.out.println("----------> amount ---------->"+bal);
 		           query.DetectAcc(accType, bal, String.valueOf(ses.getAttribute("currentUser")));
 		           System.out.println("----------> amount ---------->"+String.valueOf(ses.getAttribute("custID")));
+		           query.UpdateCard(Double.parseDouble(billAmt), String.valueOf(ses.getAttribute("currentUser")));
 		           query.updateTransValues(accNo, accType, billType+" Bill Payment", billAmt, String.valueOf(ses.getAttribute("custID")));
 		           ses.setAttribute("passPayResult", "Bill Payment Successfully Done");
 			       response.sendRedirect("passPayResult.jsp");

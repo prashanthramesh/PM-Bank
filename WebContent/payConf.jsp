@@ -108,7 +108,7 @@ try
 			Balance=result.getString("intialVal");
 		}
 	
-	}else{
+	}else if(AccountType.equals("Chequing")){
 		
 		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE chkAcc=?");	
 		state.setString(1,AccountNo);
@@ -118,7 +118,16 @@ try
 			Balance=result.getString("intialVal");
 		}
 		
+	}else{
+		state =connect.prepareStatement("SELECT * FROM creditcard WHERE CARD_NO=?");	
+		state.setString(1,AccountNo);
+		result=state.executeQuery();
+		
+		while(result.next()){			
+			Balance=result.getString("CRED_AMT");
+		}
 	}
+
  
   result.close();
   state.close();

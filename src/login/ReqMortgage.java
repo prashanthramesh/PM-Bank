@@ -112,7 +112,7 @@ public class ReqMortgage extends HttpServlet {
 					AccountType = "Savings";
 				}else
 				{
-					AccountType = "Chequeing";
+					AccountType = "Chequing";
 				}
 			    
 			    String balance = query.getBalance(type,accNo);

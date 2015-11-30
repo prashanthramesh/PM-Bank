@@ -56,14 +56,22 @@ public class PayeeType extends HttpServlet {
 				 ses.setAttribute("PayAccountNo", Accountno.substring(6));
 				 ses.setAttribute("PayType", payType);
 				 response.sendRedirect("payConf.jsp");
-			 }else{
+			 }else if(Accountno.startsWith("'chq'")){
 				 System.out.println("came here chequeing");
 				 System.out.println("++++++++++ chq Accountno.substring(3) ++++"+Accountno.substring(6));
 				 ses.setAttribute("PayAccountType", "Chequing");
 				 ses.setAttribute("PayAccountNo", Accountno.substring(6));	
 				 ses.setAttribute("PayType", payType);
 				 response.sendRedirect("payConf.jsp");
-			 } 
+			 } else
+			 {
+				 System.out.println("came here credit");
+				 System.out.println("++++++++++ cre Accountno.substring(3) ++++"+Accountno.substring(6));
+				 ses.setAttribute("PayAccountType", "CreditCard");
+				 ses.setAttribute("PayAccountNo", Accountno.substring(6));	
+				 ses.setAttribute("PayType", payType);
+				 response.sendRedirect("payConf.jsp");
+			 }
 			 
 	}
 
