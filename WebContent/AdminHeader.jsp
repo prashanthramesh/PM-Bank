@@ -37,6 +37,10 @@
                         <ul class="dropdown-menu">
                          <li>
                       
+                                <a href='pendAccReq.jsp'>Approve User</a>
+                            </li>
+                         <li>
+                      
                                 <a href='custRegister.jsp'>Add User</a>
                             </li>
                              <li>
