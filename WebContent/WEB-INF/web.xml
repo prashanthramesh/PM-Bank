@@ -199,4 +199,14 @@
     <servlet-name>ReqApproval</servlet-name>
     <url-pattern>/ReqApproval</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowImage</display-name>
+    <servlet-name>ShowImage</servlet-name>
+    <servlet-class>login.ShowImage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowImage</servlet-name>
+    <url-pattern>/ShowImage</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -2,6 +2,8 @@ package login;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 /**
  * Servlet implementation class ChequeDeposit
  */
@@ -19,8 +25,7 @@ maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50)   // 50MB
 public class ChequeDeposit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 public final String UPLOAD_DIRECTORY = "G:/uploads";
-	 public static final String SAVE_DIR = "G:/uploads";
+	 Query query;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,42 +51,40 @@ public class ChequeDeposit extends HttpServlet {
 		HttpSession ses = request.getSession();
 		try
 		{
+			query = new Query();
+			String email = String.valueOf(ses.getAttribute("currentUser"));
+			String custID = String.valueOf(ses.getAttribute("custID"));
+			String amount = request.getParameter("cheamt");
+			String accType = request.getParameter("accType");
 			
-			 String appPath = request.getServletContext().getRealPath("");
-                System.out.println("appPath--->"+appPath);
-		        String savePath = appPath + File.separator + SAVE_DIR;
-		        System.out.println("savePath--->"+savePath);
-		        
-		        File fileSaveDir = new File(savePath);
-		        if (!fileSaveDir.exists()) {
-		            fileSaveDir.mkdir();
-		        }
-		         
-		        for (Part part : request.getParts()) {
-		            String fileName = extractFileName(part);
-		            part.write(savePath + File.separator + fileName);
-		        }
-		 
-		        ses.setAttribute("chequeresult", "Cheque has been Uploaded for Admin Approval!");
-		        response.sendRedirect("chequePass.jsp");
+			
+			System.out.println("email +++++"+email);
+			System.out.println("custID +++++"+custID);
+			System.out.println("amount +++++"+amount);
+			System.out.println("accType +++++"+accType);
+				         
+	        InputStream inpStream = null; 
+	        
+	        Part file = request.getPart("image");
+	        
+	        System.out.println("file +++++"+file);
+	        
+	        if (file != null) {
+	            System.out.println(file.getName());
+	            System.out.println(file.getSize());
+	            System.out.println(file.getContentType());
+	            inpStream = file.getInputStream();
+	        }
+	        
+	        System.out.println("iputStream +++++"+inpStream);
+	        query.reqChequeDeposit(email, custID, amount, inpStream,accType);
+			   
 			
 		}catch(Exception e)
 		{
-			ses.setAttribute("chequeresult", "Cheque has been Uploaded for Admin Approval!");
-	        response.sendRedirect("chequePass.jsp");
+			e.printStackTrace();
 		}
-       
+		 ses.setAttribute("chequeresult", "Cheque has been Uploaded for Admin Approval!");
+	     response.sendRedirect("chequePass.jsp");
 	}
-
-	
-	 private String extractFileName(Part part) {
-	        String contentDisp = part.getHeader("content-disposition");
-	        String[] items = contentDisp.split(";");
-	        for (String s : items) {
-	            if (s.trim().startsWith("filename")) {
-	                return s.substring(s.indexOf("=") + 2, s.length()-1);
-	            }
-	        }
-	        return "";
-	    }
 }

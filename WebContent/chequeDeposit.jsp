@@ -13,7 +13,7 @@
 <link href="css/modern-business.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<title>CashDeposit</title>
+<title>Cheque Deposit</title>
 <script language="javascript" type="text/javascript">
 function cashValid()
 {
@@ -48,22 +48,22 @@ try
 	
 	if(AccountType.equals("Savings"))
 	{
-		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE SAVACC=?");	
+		state =connect.prepareStatement("SELECT * FROM SAVACC WHERE savAcc=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
 		while(result.next()){			
-			Balance=result.getString("ACC_BALANCE");
+			Balance=result.getString("intialVal");
 		}
 	
 	}else{
 		
-		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE CHCKACC=?");	
+		state =connect.prepareStatement("SELECT * FROM CHCKACC WHERE chkAcc=?");	
 		state.setString(1,AccountNo);
 		result=state.executeQuery();
 		
 		while(result.next()){			
-			Balance=result.getString("ACC_BALANCE");
+			Balance=result.getString("intialVal");
 		}
 		
 	}
@@ -86,6 +86,11 @@ try
 <td><%=Balance%> $</td>
 </tr>
 <tr>  
+<tr>
+<td height="25"><div align="right" style = "padding-right:10px;"><b>Cheque amount :</b></div></td>
+<td><input type="text" name="cheamt" value="" maxlength="8"/></td>
+</tr>
+<tr> 
 <tr><td><input type="hidden" name="accType" value=<%=AccountType%>></td><td><input type="hidden" name="balance" value=<%=Balance%>></td><td><input type="hidden" name="accno" value=<%=AccountNo%>></td></tr>  
 <tr></tr>  
   <%

@@ -1,4 +1,5 @@
 package login;
+import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -514,6 +515,20 @@ MailNotification mail = new MailNotification(email);
 			}
 			
 		}
+	
+	public void dropChequeReq(String email) {
+	       try{
+	    	    dbcon = new DbConnection();
+				PreparedStatement state=dbcon.getConnect().prepareStatement("DELETE FROM CHEQUEREQ WHERE email=?");
+				state.setString(1,email);
+				state.executeUpdate();	
+				state.close();
+				dbcon.clsConnect();
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+			
+		}
 	public void dropMortgage(String email) {
 	       try{
 	    	    dbcon = new DbConnection();
@@ -673,6 +688,42 @@ MailNotification mail = new MailNotification(email);
 		e.printStackTrace();
 	}
   }
+   
+   public void reqChequeDeposit(String email,String custID,String amount,InputStream pic,String accType){
+		
+	   
+		try{
+			System.out.println("came here dude !!");
+			dbcon = new DbConnection();
+			PreparedStatement state1;
+			   
+		    state1= dbcon.getConnect().prepareStatement("INSERT INTO CHEQUEREQ VALUES(?,?,?,?,?)");   
+		    state1.setString(1,email);
+		    state1.setString(2,custID);
+		    state1.setString(3,amount);
+		    System.out.println("came here dude 1 !!");
+		    state1.setBlob(4, pic);
+		    System.out.println("came here dude  2!!");
+		    state1.setString(5,accType);
+		    state1.executeUpdate();	
+		    state1.close();		    
+		    dbcon.clsConnect();
+		    
+MailNotification mail = new MailNotification(email);
+		    
+		    String text = "Hello "+ 
+		    		      "\n\n Your Cheque request is sent to bank approval"+
+		    		      "\n\n Amount : "+amount+	
+		    		      "\n\n Please log into portal for more details: "+	
+		    		      "\n\n Note : Please do not reply to this E-Mail Notification";
+		    
+		    mail.sendMail( "Cheque Request", text);
+		    
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+ }
 	
    public void reqMortgage(String custID,String email,String amount,String interest,String year, String mortReason){
 		

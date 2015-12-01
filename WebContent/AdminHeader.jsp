@@ -40,7 +40,7 @@
                                 <a href='pendAccReq.jsp'>New User</a>
                             </li>
                          <li>                      
-                                <a href='custRegister.jsp'>Cheque Deposit</a>
+                                <a href='pendChequeReq.jsp'>Cheque Deposit</a>
                             </li>
                              <li>
                                  <a href='pendMortgageReq.jsp'>Mortgage</a>
