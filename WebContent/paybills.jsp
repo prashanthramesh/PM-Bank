@@ -73,7 +73,13 @@ result2.close();
 <select name="accOption">
   <option value="'sav'+<%=SaccNo%>">Savings Account (<%=SaccNo%>)</option>
   <option value="'chq'+<%=ChaccNo%>">Chequing Account (<%=ChaccNo%>)</option>
+  <%if(!CreditNo.equalsIgnoreCase("")) 
+  {
+  %>
   <option value="'cre'+<%=CreditNo%>">Credit Card (<%=CreditNo%>)</option>
+  <%
+  }
+  %>
 </select>
 </td>
 </tr>

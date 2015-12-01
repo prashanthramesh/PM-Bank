@@ -120,7 +120,9 @@ public class ReqCreditCard extends HttpServlet {
 			String type = request.getParameter("accOption");
 		    String accNo = request.getParameter("accOption").substring(6);
 		    String existingAmount = request.getParameter("intbalance");
-		    String AccountType;
+		    String payAmount = request.getParameter("payamt");
+		    String AccountType;    
+		    
 		    
 		    if(type.startsWith("'sav'"))
 			{
@@ -133,14 +135,23 @@ public class ReqCreditCard extends HttpServlet {
 		    String balance = query.getBalance(type,accNo);
 		    
 		    try{
-		           if(Double.parseDouble(balance) < Double.parseDouble(existingAmount))
-		           {
-		        	   ses.setAttribute("creditcardStatus", "Credit Card Debit cannot be paid due to insufficient balance");
+		    	   if(Double.parseDouble(existingAmount) > 0)
+		    	   {
+		    		   ses.setAttribute("creditcardStatus", "Debt Amount Should be greathe than Zero");
+				       response.sendRedirect("resultCredit.jsp");
+		    	   }else if(Double.parseDouble(existingAmount) < Double.parseDouble(payAmount))
+		    	   {
+		    		   ses.setAttribute("creditcardStatus", "Pay Amount is higher than the Credit Card Debit");
+				       response.sendRedirect("resultCredit.jsp");
+		    	   }else if(Double.parseDouble(balance) < Double.parseDouble(existingAmount))
+		    	   {
+		    	
+		              ses.setAttribute("creditcardStatus", "Credit Card Debit cannot be paid due to insufficient balance");
 				       response.sendRedirect("resultCredit.jsp");
 				       
 		           }else
 		           {
-			           Double bal = Double.parseDouble(balance)-Double.parseDouble(existingAmount);
+			           Double bal = Double.parseDouble(balance)-Double.parseDouble(payAmount);
 			           System.out.println("----------> amount ---------->"+bal);
 			           
 			           query.DetectAcc(AccountType,bal,String.valueOf(ses.getAttribute("currentUser")));

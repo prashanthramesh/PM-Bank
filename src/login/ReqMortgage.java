@@ -105,6 +105,8 @@ public class ReqMortgage extends HttpServlet {
 			    String type = request.getParameter("accOption");
 			    String accNo = request.getParameter("accOption").substring(6);
 			    String existingAmount = request.getParameter("intbalance");
+			    String payamt = request.getParameter("payamt");
+			    
 			    String AccountType;
 			    
 			    if(type.startsWith("'sav'"))
@@ -118,19 +120,31 @@ public class ReqMortgage extends HttpServlet {
 			    String balance = query.getBalance(type,accNo);
 			    
 			    try{
-			           if(Double.parseDouble(balance) < Double.parseDouble(existingAmount))
-			           {
-			        	   ses.setAttribute("mortgageStatus", "Mortgage Amount cannot be paid due to insufficient balance");
+			    	   if(Double.parseDouble(balance) < Double.parseDouble(payamt))
+			    	   {
+			    		   ses.setAttribute("mortgageStatus", "Enter Pay Amount is higher than Account Balance ");
 					       response.sendRedirect("resultMortgage.jsp");
 					       
-			           }else
+			    	   }else if(Double.parseDouble(existingAmount) < Double.parseDouble(payamt))
+			    	   {
+					       ses.setAttribute("mortgageStatus", "Pay Amount is higher than the Credit Card Debit");
+					       response.sendRedirect("resultMortgage.jsp");
+					       
+			    	   }else
 			           {
-				           Double bal = Double.parseDouble(balance)-Double.parseDouble(existingAmount);
+				           Double bal = Double.parseDouble(balance)-Double.parseDouble(payamt);
 				           System.out.println("----------> amount ---------->"+bal);
 				           
 				           query.DetectAcc(AccountType,bal,String.valueOf(ses.getAttribute("currentUser")));
-				           query.dropMortgage(String.valueOf(ses.getAttribute("currentUser")));
-				           query.updateTransValues(accNo, AccountType, "Mortgage Paid", existingAmount, String.valueOf(ses.getAttribute("custID")));
+				           Double newMortAmt = Double.parseDouble(existingAmount) - Double.parseDouble(payamt);
+				           if(newMortAmt!= Double.parseDouble("0"))
+				           {
+				        	   query.UpdateMortgage(String.valueOf(ses.getAttribute("currentUser")), newMortAmt);
+				           }else
+				           {
+				        	   query.dropMortgage(String.valueOf(ses.getAttribute("currentUser")));
+				           }				           
+				           query.updateTransValues(accNo, AccountType, "Mortgage Amount Paid", payamt, String.valueOf(ses.getAttribute("custID")));
 				           
 				           ses.setAttribute("mortgageStatus", "Amount Successfully Withdrawn from Account and paid for mortgage");
 					       response.sendRedirect("resultMortgage.jsp");

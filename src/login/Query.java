@@ -543,6 +543,23 @@ MailNotification mail = new MailNotification(email);
 			
 		}
 	
+	public void UpdateMortgage(String mail, Double mortAmt) {
+		try{
+			dbcon = new DbConnection();
+			PreparedStatement state	=dbcon.getConnect().prepareStatement( "UPDATE mortgage SET Totalamount=? WHERE email=?"); 
+			state.setString(1,String.valueOf(mortAmt));
+			state.setString(2,String.valueOf(mail));			
+	   	    state.executeUpdate();
+	   	    state.close();
+	   	    dbcon.clsConnect();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void UpdateAcc(String accType,Double bal, String mail) {
 		try{
 			System.out.println("Find me here +++");
@@ -571,14 +588,33 @@ MailNotification mail = new MailNotification(email);
 	}
 	
 	public void UpdateCard(Double billAmt, String mail) {
+		
+		String Debtamt = "";
+		dbcon = new DbConnection();
+		Double debt ;
+		
+		
+		
 		try{
 			System.out.println("Find me here +++");
 			System.out.println("new balance +++"+billAmt);
-			dbcon = new DbConnection();
+			
+			PreparedStatement state2=dbcon.getConnect().prepareStatement("SELECT * FROM creditcard WHERE email=?");
+			state2.setString(1,String.valueOf(mail));
+			ResultSet result2=state2.executeQuery();;
+			while(result2.next())
+			  {
+				Debtamt=result2.getString("DEBIT_AMT"); 
+			  }	
+			result2.close();
+			
+			debt = Double.parseDouble(Debtamt)+billAmt;
+			
+			
 			PreparedStatement state;
 						  
 		    state=dbcon.getConnect().prepareStatement( "UPDATE creditcard SET DEBIT_AMT=? WHERE email=?");            
-			state.setString(1,String.valueOf(billAmt));
+			state.setString(1,String.valueOf(debt));
 			state.setString(2,String.valueOf(mail));			
 	   	    state.executeUpdate();
 	   	    state.close();

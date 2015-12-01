@@ -29,7 +29,7 @@
 <fieldset>
 <legend><b>Successfully Registered</b></legend>
 <div align="Center"><p> &nbsp;</p></div>
-<div align="Center"><p>We will get back to you soon !!!!</div>
+<div align="Center"><p><%=session.getAttribute("registerStatus")%></div>
 <div align="center">&nbsp;</div>
 <div align="center"><a href='index.jsp' class="btn btn-primary">Login </a></div>
 </fieldset>
