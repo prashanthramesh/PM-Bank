@@ -107,6 +107,11 @@ try
 <td><%=accNo%></td>
 </tr>
 <tr>
+<tr>
+<td height="25"><div align="right" style = "padding-right:10px;"><b>Current Balance :</b></div></td>
+<td><%=Balance%> $</td>
+</tr>
+<tr>
 <tr>  
 <tr><td><input type="hidden" name="accType" value=<%=AccountType%>></td><td><input name="balance" type="hidden"  value=<%=Balance%>></td><td><input type="hidden" name="accno" value=<%=accNo%>></td></tr>  
 <tr></tr>  

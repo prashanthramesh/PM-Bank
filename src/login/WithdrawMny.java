@@ -65,6 +65,7 @@ public class WithdrawMny extends HttpServlet {
 		           {
 			           Double bal = Double.parseDouble(balance)-Double.parseDouble(withdraw);
 			           System.out.println("----------> amount ---------->"+bal);
+			           System.out.println("++++++ accType +++"+accType);
 			           
 			           query.DetectAcc(accType,bal,String.valueOf(ses.getAttribute("currentUser")));
 			           query.updateTransValues(accNo, accType, "Withdraw", withdraw, String.valueOf(ses.getAttribute("custID")));
