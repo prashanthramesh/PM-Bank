@@ -83,6 +83,7 @@ try
 <td height="25"><div align="right" style = "padding-right:10px;"><b>Pay amount :</b></div></td>
 <td><input type="text" name="payamt" value="" maxlength="8"/></td>
 </tr>
+<tr><td><input name="crebalance" type="hidden"  value=<%=CredAmt%>></td></tr> 
 <tr><td><input name="intbalance" type="hidden"  value=<%=DebitAmt%>></td></tr>  
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>

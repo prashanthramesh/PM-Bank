@@ -119,9 +119,13 @@ public class ReqCreditCard extends HttpServlet {
 		{
 			String type = request.getParameter("accOption");
 		    String accNo = request.getParameter("accOption").substring(6);
-		    String existingAmount = request.getParameter("intbalance");
-		    String payAmount = request.getParameter("payamt");
-		    String AccountType;    
+		    String existingAmount = request.getParameter("intbalance"); //debt amount
+		    String payAmount = request.getParameter("payamt"); // entered amount
+		    String crebalance = request.getParameter("crebalance");
+		    String AccountType; 
+		    
+		    System.out.println("+++++++ debt amount +++"+existingAmount);
+		    System.out.println("+++++++ amount entered +++"+payAmount);
 		    
 		    
 		    if(type.startsWith("'sav'"))
@@ -129,21 +133,22 @@ public class ReqCreditCard extends HttpServlet {
 				AccountType = "Savings";
 			}else
 			{
-				AccountType = "Chequing";
+				AccountType = "Chequeing";
 			}
 		    
 		    String balance = query.getBalance(type,accNo);
+		    System.out.println("+++++++ balance amount in account +++"+balance);
 		    
 		    try{
-		    	   if(Double.parseDouble(existingAmount) > 0)
+		    	   if(Double.parseDouble(existingAmount) <= 0)
 		    	   {
-		    		   ses.setAttribute("creditcardStatus", "Debt Amount Should be greathe than Zero");
+		    		   ses.setAttribute("creditcardStatus", "Debt Amount Should be greather than Zero");
 				       response.sendRedirect("resultCredit.jsp");
 		    	   }else if(Double.parseDouble(existingAmount) < Double.parseDouble(payAmount))
 		    	   {
 		    		   ses.setAttribute("creditcardStatus", "Pay Amount is higher than the Credit Card Debit");
 				       response.sendRedirect("resultCredit.jsp");
-		    	   }else if(Double.parseDouble(balance) < Double.parseDouble(existingAmount))
+		    	   }else if(Double.parseDouble(balance) < Double.parseDouble(payAmount))
 		    	   {
 		    	
 		              ses.setAttribute("creditcardStatus", "Credit Card Debit cannot be paid due to insufficient balance");
@@ -152,10 +157,13 @@ public class ReqCreditCard extends HttpServlet {
 		           }else
 		           {
 			           Double bal = Double.parseDouble(balance)-Double.parseDouble(payAmount);
-			           System.out.println("----------> amount ---------->"+bal);
+			           Double debt = Double.parseDouble(existingAmount)-Double.parseDouble(payAmount);
+			           Double credit = Double.parseDouble(crebalance)+Double.parseDouble(payAmount);
+			           System.out.println("----------> debt ---------->"+debt);
+			           System.out.println("----------> credit ---------->"+credit);
 			           
 			           query.DetectAcc(AccountType,bal,String.valueOf(ses.getAttribute("currentUser")));
-			           query.UpdateCreCard(Double.parseDouble("1000"),Double.parseDouble("0"),String.valueOf(ses.getAttribute("currentUser")));
+			           query.UpdateCreCard(credit,debt,String.valueOf(ses.getAttribute("currentUser")));
 			           query.updateTransValues(accNo, AccountType, "Credit card bill Paid", existingAmount, String.valueOf(ses.getAttribute("custID")));
 			           
 			           ses.setAttribute("creditcardStatus", "Credit Card Debit is successfully Paid");
