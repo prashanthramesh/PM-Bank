@@ -39,6 +39,9 @@
                              <li>
                                  <a href='DepositMain.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Deposit</a>
                             </li>
+                            <li>
+                                 <a href='TransferBet.jsp?value=<%=session.getAttribute( "currentUser" )%>'>Transfer Between Accounts</a>
+                            </li>
                             
                         </ul>
                     </li>

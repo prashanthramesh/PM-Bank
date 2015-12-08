@@ -209,4 +209,14 @@
     <servlet-name>ShowImage</servlet-name>
     <url-pattern>/ShowImage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TransferAcc</display-name>
+    <servlet-name>TransferAcc</servlet-name>
+    <servlet-class>login.TransferAcc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransferAcc</servlet-name>
+    <url-pattern>/TransferAcc</url-pattern>
+  </servlet-mapping>
 </web-app>
